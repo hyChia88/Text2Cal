@@ -43,7 +43,7 @@ export default function Home() {
       setIsLoading(true);
       setError("");
       
-      const response = await axios.post(`${API_BASE_URL}/api/add-log`, { log });
+      await axios.post(`${API_BASE_URL}/api/add-log`, { log });
       
       // 重新获取最新的日志
       await fetchLogs();
