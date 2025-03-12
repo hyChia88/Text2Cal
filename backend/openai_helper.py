@@ -98,11 +98,12 @@ def generate_suggestion():
 
 请提供具体、可操作的建议，帮助我提高工作效率， 回答在3句子以内。"""
         
-        # 使用更新的OpenAI客户端格式
-        client = openai.OpenAI(api_key=api_key)
+        # 使用兼容性更强的方式初始化OpenAI客户端
+        openai.api_key = api_key
         
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",  # 使用chat completion模型
+        # 使用旧版API调用方式
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "你是一位专业的效率顾问，专注于帮助用户分析他们的日常活动并提供改进建议。"},
                 {"role": "user", "content": prompt}
@@ -110,7 +111,7 @@ def generate_suggestion():
             max_tokens=500
         )
         
-        return response.choices[0].message.content
+        return response.choices[0].message['content']
     
     except Exception as e:
         print(f"调用OpenAI API时出错: {e}")
