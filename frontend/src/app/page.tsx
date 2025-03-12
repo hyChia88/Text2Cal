@@ -105,7 +105,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Day Logger</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Text2Cal</h1>
         
         {/* 日志输入表单 */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
@@ -154,7 +154,7 @@ export default function Home() {
         
         {/* AI建议 */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-xl font-semibold mb-4">Productivity Insights</h2>
+          <h2 className="text-xl font-semibold mb-4">Productivity Insights by AI helper</h2>
           <button
             className="mb-4 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
             onClick={getSuggestion}
