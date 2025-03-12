@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
 import json
-import re
 from datetime import datetime, timedelta
 from flask_cors import CORS
 import os
 from db_model import db  # 导入数据库模型
-from notion_helper import sync_to_notion, parse_text  # 导入Notion同步函数
+from notion_helper import sync_to_notion, parse_text  # 从notion_helper导入函数
+from openai_helper import generate_suggestion  # 导入OpenAI建议生成功能
 
 app = Flask(__name__)
 CORS(app)  # 为所有路由启用CORS
@@ -46,7 +46,7 @@ def add_log():
     # 如果没有事件或解析失败，添加为简单日志
     log_id = db.add_log(content=log_text)
     
-    # 同步到Notion
+    # 同步到Notion作为简单任务
     notion_id = sync_to_notion(content=log_text)
     
     return jsonify({"status": "success", "log_id": log_id, "notion_id": notion_id})
@@ -87,26 +87,10 @@ def delete_log(log_id):
 
 @app.route("/api/suggestion", methods=["GET"])
 def suggestion():
-    # 这里可以添加生成建议的代码
-    # 你可以使用SQLite数据库中的数据来生成建议
+    """使用OpenAI生成基于用户日志的建议"""
     try:
-        logs = db.get_logs(days=7)  # 获取最近7天的日志
-        
-        if not logs:
-            return jsonify({"suggestion": "没有找到过去7天的日志记录。请添加一些日志，然后再试一次。"})
-        
-        # 这里你可以根据日志数据生成一些简单的建议
-        # 例如，找出最常见的活动，或者检测时间模式等
-        
-        # 简单示例，只返回日志数量和一般性建议
-        log_count = len(logs)
-        
-        suggestion_text = f"""
-过去7天我记录了{log_count}个日志项目。
-日志：{logs}
-根据我的记录，给我一些建议（3句以内）。
-"""
-        
+        # 直接调用OpenAI助手的建议生成功能
+        suggestion_text = generate_suggestion()
         return jsonify({"suggestion": suggestion_text})
     except Exception as e:
         print(f"生成建议时出错: {e}")
