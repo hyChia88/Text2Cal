@@ -1,0 +1,219 @@
+项目背景和目标
+关键功能 (Key Features)
+技术栈与工具 (Tech Stack and Tools)
+项目结构与代码组织
+开发步骤
+部署与使用
+💡 项目背景和目标
+为了提高时间管理效率，我们开发一个 自动化日程管理平台，用户可以在页面上轻松添加日志、查看日志记录，并自动同步到 Notion 数据库。同时，集成 OpenAI API，基于过去 7 天的日志生成效率优化建议。
+
+🚀 关键功能 (Key Features)
+Open AI 建议生成
+
+自动获取过去 7 天的日志，使用预设的 prompt 生成优化建议。
+日志展示和管理
+
+实时更新和展示日志记录。
+日志输入和手动添加功能。
+自动更新到 Notion
+
+使用 Notion API 自动将日志同步到数据库。
+移动端友好设计
+
+界面简洁，方便在手机和电脑上操作。
+🛠️ 技术栈与工具 (Tech Stack and Tools)
+前端
+React + Next.js: 构建交互界面和页面路由。
+Tailwind CSS: 快速构建响应式和优雅的 UI。
+后端
+Python (Flask 或 FastAPI): 提供后端 API 和与 OpenAI 及 Notion 的交互。
+Notion API: 日志同步到 Notion 数据库。
+OpenAI API: 日志效率分析和优化建议。
+部署
+Vercel (前端): 部署 Next.js 应用。
+AWS EC2 (后端): 部署 Python 后端服务。
+🗂️ 项目结构与代码组织
+csharp
+Copy
+Edit
+project-root
+├── frontend
+│   ├── components
+│   ├── pages
+│   ├── styles
+│   └── public
+├── backend
+│   ├── app.py           # 后端 Flask/FastAPI 主程序
+│   ├── notion_helper.py  # Notion API 交互
+│   └── openai_helper.py  # OpenAI API 交互
+└── text2cal
+    └── text2cal.py       # 原有日志解析和日历更新脚本
+📝 开发步骤
+1. 前端开发 (React + Next.js)
+安装依赖
+
+bash
+Copy
+Edit
+npx create-next-app@latest frontend
+cd frontend
+npm install axios tailwindcss
+配置 Tailwind CSS
+
+bash
+Copy
+Edit
+npx tailwindcss init -p
+前端主要页面 (pages/index.js)
+
+javascript
+Copy
+Edit
+import { useState } from "react";
+import axios from "axios";
+
+export default function Home() {
+  const [log, setLog] = useState("");
+  const [logs, setLogs] = useState([]);
+  const [suggestion, setSuggestion] = useState("");
+
+  const addLog = async () => {
+    await axios.post("/api/add-log", { log });
+    setLogs([...logs, log]);
+    setLog("");
+  };
+
+  const getSuggestion = async () => {
+    const response = await axios.get("/api/suggestion");
+    setSuggestion(response.data.suggestion);
+  };
+
+  return (
+    <div className="p-4">
+      <div className="mb-4">
+        <h1 className="text-xl font-bold">Open AI Suggest:</h1>
+        <button className="bg-blue-500 text-white p-2 rounded" onClick={getSuggestion}>
+          Generate Suggestion
+        </button>
+        <p className="mt-2">{suggestion}</p>
+      </div>
+      <div className="mb-4">
+        <h2 className="text-lg">Log:</h2>
+        <ul>
+          {logs.map((log, index) => (
+            <li key={index}>{log}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="mt-4">
+        <input
+          className="border p-2 mr-2"
+          value={log}
+          onChange={(e) => setLog(e.target.value)}
+          placeholder="Enter log..."
+        />
+        <button className="bg-green-500 text-white p-2 rounded" onClick={addLog}>
+          Add Log
+        </button>
+      </div>
+    </div>
+  );
+}
+2. 后端开发 (Flask 或 FastAPI)
+安装依赖
+
+bash
+Copy
+Edit
+pip install flask requests
+后端主程序 (app.py)
+
+python
+Copy
+Edit
+from flask import Flask, request, jsonify
+import openai
+import json
+from notion_helper import update_notion
+from openai_helper import generate_suggestion
+
+app = Flask(__name__)
+
+@app.route("/api/add-log", methods=["POST"])
+def add_log():
+    data = request.get_json()
+    log = data["log"]
+    update_notion(log)
+    return jsonify({"status": "success"})
+
+@app.route("/api/suggestion", methods=["GET"])
+def suggestion():
+    suggestion = generate_suggestion()
+    return jsonify({"suggestion": suggestion})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+3. 集成 OpenAI 和 Notion API
+openai_helper.py
+
+python
+Copy
+Edit
+import openai
+
+def generate_suggestion():
+    openai.api_key = "YOUR_OPENAI_API_KEY"
+    prompt = "Analyze the following logs and suggest improvements..."
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=prompt,
+        max_tokens=100
+    )
+    return response["choices"][0]["text"]
+notion_helper.py
+
+python
+Copy
+Edit
+import requests
+
+def update_notion(log):
+    notion_token = "YOUR_NOTION_API_KEY"
+    database_id = "YOUR_NOTION_DATABASE_ID"
+    url = f"https://api.notion.com/v1/pages"
+    headers = {
+        "Authorization": f"Bearer {notion_token}",
+        "Notion-Version": "2022-06-28"
+    }
+    data = {
+        "parent": {"database_id": database_id},
+        "properties": {
+            "Name": {"title": [{"text": {"content": log}}]},
+            "Date": {"date": {"start": "2025-03-11"}}
+        }
+    }
+    requests.post(url, headers=headers, json=data)
+4. 将原有 text2cal.py 作为辅助脚本
+将其放置在 backend 文件夹中，并通过 Flask 路由调用它：
+
+bash
+Copy
+Edit
+/backend/text2cal/text2cal.py
+🚀 部署与使用
+前端部署 (Vercel)
+将 Next.js 项目推送到 GitHub，连接 Vercel 自动部署。
+后端部署 (AWS EC2)
+使用 Nginx 反向代理到 Flask 后端。
+配置 OpenAI 和 Notion 的环境变量。
+运行服务
+bash
+Copy
+Edit
+# 前端
+npm run dev
+
+# 后端
+python app.py
+🎯 总结
+该平台为用户提供了一站式效率管理，通过自动化日志更新和智能建议提升个人效率。凭借灵活的移动端访问和 OpenAI 分析，满足现代人快节奏生活的管理需求。
