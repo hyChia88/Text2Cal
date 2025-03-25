@@ -1,0 +1,134 @@
+2025-03-25 03:21:29,760 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.2:5000
+2025-03-25 03:21:29,760 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-25 03:22:08,870 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:22:08] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-25 03:22:16,089 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:22:16] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-25 03:24:05,987 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:24:05] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-25 03:25:01,006 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.2:5000
+2025-03-25 03:25:01,006 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-25 03:25:33,851 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:25:33] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-25 03:28:17,629 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:28:17] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-25 03:35:20,497 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:35:20] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-25 03:36:01,522 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:36:01] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-25 03:37:24,621 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:37:24] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-25 03:37:59,331 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.2:5000
+2025-03-25 03:37:59,331 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-25 03:37:59,347 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:38:06,438 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:38:06,497 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:38:06,580 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:38:06] "GET / HTTP/1.1" 200 -
+2025-03-25 03:38:33,336 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:38:33] "OPTIONS /api/add-log HTTP/1.1" 200 -
+2025-03-25 03:38:33,594 - __main__ - ERROR - Error in add_log: Database.add_log() got an unexpected keyword argument 'progress'
+2025-03-25 03:38:33,594 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:38:33] "[35m[1mPOST /api/add-log HTTP/1.1[0m" 500 -
+2025-03-25 03:40:05,476 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\app.py", reloading
+2025-03-25 03:40:05,477 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\app.py", reloading
+2025-03-25 03:40:06,905 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:40:15,132 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:40:15,141 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:40:46,517 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\pymongo\\__init__.py", reloading
+2025-03-25 03:40:46,532 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\bson\\__init__.py", reloading
+2025-03-25 03:40:46,535 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\bson\\objectid.py", reloading
+2025-03-25 03:40:46,548 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\dotenv\\__init__.py", reloading
+2025-03-25 03:40:46,551 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\dotenv\\main.py", reloading
+2025-03-25 03:40:48,093 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:40:56,212 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:40:56,217 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:41:16,373 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\db_model.py", reloading
+2025-03-25 03:41:16,374 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\db_model.py", reloading
+2025-03-25 03:41:16,375 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\db_model.py", reloading
+2025-03-25 03:41:18,000 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:41:25,828 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:41:25,833 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:41:31,116 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\db_model.py", reloading
+2025-03-25 03:41:31,117 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\db_model.py", reloading
+2025-03-25 03:41:31,118 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\db_model.py", reloading
+2025-03-25 03:41:31,838 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:41:40,737 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:41:40,748 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:41:41,637 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\pymongo\\errors.py", reloading
+2025-03-25 03:41:42,746 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:41:54,942 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:41:54,951 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:42:31,690 - werkzeug - INFO -  * Detected change in 'C:\\Users\\huiye\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\os.py', reloading
+2025-03-25 03:42:32,423 - werkzeug - INFO -  * Detected change in 'C:\\Users\\huiye\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\typing.py', reloading
+2025-03-25 03:42:33,449 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:42:46,706 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:42:46,711 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:43:09,311 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\db_model.py", reloading
+2025-03-25 03:43:09,312 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\db_model.py", reloading
+2025-03-25 03:43:10,360 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:43:18,291 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:43:18,296 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:43:22,602 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\app.py", reloading
+2025-03-25 03:43:22,603 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\app.py", reloading
+2025-03-25 03:43:24,211 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:43:32,111 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:43:32,123 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:47:40,143 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.2:5000
+2025-03-25 03:47:40,143 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-25 03:47:40,153 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:47:46,255 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:47:46,259 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:47:55,163 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:47:55] "GET / HTTP/1.1" 200 -
+2025-03-25 03:48:50,562 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:48:50] "OPTIONS /api/add-log HTTP/1.1" 200 -
+2025-03-25 03:49:04,134 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:49:04] "POST /api/add-log HTTP/1.1" 200 -
+2025-03-25 03:49:06,947 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:49:06] "GET /api/suggestion HTTP/1.1" 200 -
+2025-03-25 03:51:09,401 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\openai_helper.py", reloading
+2025-03-25 03:51:09,444 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\openai_helper.py", reloading
+2025-03-25 03:51:09,444 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\openai_helper.py", reloading
+2025-03-25 03:51:10,506 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:51:17,554 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:51:17,558 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 03:51:22,019 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:51:22] "OPTIONS /api/add-log HTTP/1.1" 200 -
+2025-03-25 03:51:25,017 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:51:25] "POST /api/add-log HTTP/1.1" 200 -
+2025-03-25 03:51:26,933 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:51:26] "GET /api/suggestion HTTP/1.1" 200 -
+2025-03-25 03:51:28,986 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 03:51:28] "GET /api/suggestion HTTP/1.1" 200 -
+2025-03-25 03:54:15,216 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\werkzeug\\debug\\console.py", reloading
+2025-03-25 03:54:15,236 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\werkzeug\\exceptions.py", reloading
+2025-03-25 03:54:15,290 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\werkzeug\\formparser.py", reloading
+2025-03-25 03:54:15,339 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\werkzeug\\http.py", reloading
+2025-03-25 03:54:15,379 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\werkzeug\\debug\\tbtools.py", reloading
+2025-03-25 03:54:16,335 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 03:54:31,636 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 03:54:31,648 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 04:01:19,948 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 04:01:19] "GET / HTTP/1.1" 200 -
+2025-03-25 04:05:23,309 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\wrapt\\__wrapt__.py", reloading
+2025-03-25 04:05:23,310 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\wrapt\\__init__.py", reloading
+2025-03-25 04:05:23,311 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\wrapt\\wrappers.py", reloading
+2025-03-25 04:05:23,322 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\wrapt\\weakrefs.py", reloading
+2025-03-25 04:05:23,325 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\wrapt\\patches.py", reloading
+2025-03-25 04:05:23,326 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\wrapt\\importer.py", reloading
+2025-03-25 04:05:23,327 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\wrapt\\decorators.py", reloading
+2025-03-25 04:05:23,327 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\venv\\Lib\\site-packages\\wrapt\\arguments.py", reloading
+2025-03-25 04:05:25,132 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 04:05:34,176 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 04:05:34,180 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 04:21:43,410 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 04:21:43] "OPTIONS /api/add-log HTTP/1.1" 200 -
+2025-03-25 04:21:44,790 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 04:21:44] "POST /api/add-log HTTP/1.1" 200 -
+2025-03-25 04:21:47,164 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 04:21:47] "GET /api/suggestion HTTP/1.1" 200 -
+2025-03-25 04:40:59,777 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 04:40:59] "OPTIONS /api/add-log HTTP/1.1" 200 -
+2025-03-25 04:41:01,230 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 04:41:01] "POST /api/add-log HTTP/1.1" 200 -
+2025-03-25 04:41:03,370 - werkzeug - INFO - 127.0.0.1 - - [25/Mar/2025 04:41:03] "GET /api/suggestion HTTP/1.1" 200 -
+2025-03-25 05:05:49,380 - werkzeug - INFO -  * Detected change in "D:\\ahYen's Workspace\\ahYen's Work\\Side projects\\Text2Cal\\backend\\openai_helper.py", reloading
+2025-03-25 05:05:51,905 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 05:06:00,221 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 05:06:00,229 - werkzeug - INFO -  * Debugger PIN: 122-718-842
+2025-03-25 05:41:45,294 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.2:5000
+2025-03-25 05:41:45,295 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-25 05:41:45,335 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-25 05:41:54,685 - werkzeug - WARNING -  * Debugger is active!
+2025-03-25 05:41:54,695 - werkzeug - INFO -  * Debugger PIN: 187-904-583
