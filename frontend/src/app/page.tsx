@@ -1,8 +1,48 @@
 'use client';
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import debounce from 'lodash/debounce';
 import { apiService } from '../services/api';
+import axios from "axios";
+
+// Define your API base URL here
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
+
+// File Upload Component
+const FileUploadZone = ({ onUpload }: { onUpload: (file: File) => void }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  
+  const handleClick = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      onUpload(e.target.files[0]);
+      
+      // Clear the input value for future uploads
+      if (e.target.value) {
+        e.target.value = '';
+      }
+    }
+  };
+  
+  return (
+    <label className="drop-zone" onClick={handleClick}>
+      <input 
+        type="file" 
+        id="fileUpload" 
+        ref={inputRef}
+        onChange={handleChange}
+        accept="image/*,application/pdf,.docx,.doc,.txt"
+        style={{ display: 'none' }}
+      />
+      Upload
+    </label>
+  );
+};
 
 export default function Home() {
   const [log, setLog] = useState("");
@@ -17,6 +57,11 @@ export default function Home() {
   const [attentionWeights, setAttentionWeights] = useState<{[key: string]: number}>({});
   const [showAttentionMap, setShowAttentionMap] = useState(false);
   const [selectedMemory, setSelectedMemory] = useState<string | null>(null);
+  
+  // File analysis states
+  const [selectedFileLogId, setSelectedFileLogId] = useState<string | null>(null);
+  const [showAnalysisModal, setShowAnalysisModal] = useState(false);
+  const [analysisResults, setAnalysisResults] = useState<any>(null);
 
   // Check if device is mobile
   useEffect(() => {
@@ -129,9 +174,67 @@ export default function Home() {
   };
 
   // Handle file upload
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSuccessMessage("File upload functionality coming soon.");
-    setTimeout(() => setSuccessMessage(""), 3000);
+  const handleFileUpload = async (file: File) => {
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      // Create FormData object
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      // Send file to backend
+      const response = await axios.post(`${API_BASE_URL}/api/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      
+      // Handle successful response
+      if (response.data.status === 'success') {
+        setSuccessMessage(`File uploaded successfully: ${file.name}`);
+        
+        // Save file log ID for later analysis
+        if (response.data.log_id) {
+          setSelectedFileLogId(response.data.log_id);
+          
+          // If image file, show analysis option
+          if (file.type.startsWith('image/')) {
+            setSuccessMessage(`Image uploaded: ${file.name}. You can now analyze this image.`);
+          }
+        }
+        
+        // Refresh logs list
+        fetchLogs();
+      }
+    } catch (err) {
+      console.error("Error uploading file:", err);
+      setError("Failed to upload file. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Analyze uploaded file
+  const analyzeFile = async () => {
+    if (!selectedFileLogId) return;
+    
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/files/${selectedFileLogId}/analyze`);
+      
+      if (response.data.status === 'success') {
+        setAnalysisResults(response.data);
+        setShowAnalysisModal(true);
+      }
+    } catch (err) {
+      console.error("Error analyzing file:", err);
+      setError("Failed to analyze file. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Handle Enter key in input
@@ -236,14 +339,7 @@ export default function Home() {
               {isLoading ? "Processing..." : "Log"}
             </button>
             
-            <label className="drop-zone">
-              <input 
-                type="file" 
-                id="fileUpload" 
-                onChange={handleFileUpload}
-              />
-              Upload
-            </label>
+            <FileUploadZone onUpload={handleFileUpload} />
             
             <button 
               className="generateBtn"
@@ -253,6 +349,17 @@ export default function Home() {
               Generate
             </button>
           </div>
+          
+          {/* File analysis button - only show if file is uploaded */}
+          {selectedFileLogId && (
+            <button
+              className="mt-4 w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+              onClick={analyzeFile}
+              disabled={isLoading}
+            >
+              {isLoading ? "Analyzing..." : "Analyze Uploaded File"}
+            </button>
+          )}
         </div>
 
         {/* Notifications */}
@@ -407,6 +514,101 @@ export default function Home() {
         <div className="navElement"><a href="#" target="_blank">Privacy</a></div>
         <div className="navElement"><a href="#" target="_blank">Contact</a></div>
       </section>
+
+      {/* File Analysis Modal */}
+      {showAnalysisModal && analysisResults && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-md p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <h2 className="text-xl font-semibold mb-4">File Analysis Results</h2>
+            
+            {/* Image analysis results */}
+            {analysisResults.file_type === 'image' && (
+              <div>
+                {/* Sensory descriptions */}
+                {analysisResults.sensory_descriptions && (
+                  <div className="mb-6">
+                    <h3 className="text-lg font-medium mb-3">Sensory Descriptions</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      {Object.entries(analysisResults.sensory_descriptions).map(([sense, data]: [string, any]) => (
+                        <div key={sense} className="border border-gray-200 p-3 rounded">
+                          <h4 className="font-medium mb-1 capitalize">{sense}</h4>
+                          <p className="text-sm text-gray-600">{data.English}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Content analysis */}
+                {analysisResults.content_analysis && (
+                  <div className="mb-6">
+                    <h3 className="text-lg font-medium mb-3">Content Analysis</h3>
+                    <div className="bg-gray-50 p-4 rounded">
+                      <p className="mb-2"><strong>Description:</strong> {analysisResults.content_analysis.description}</p>
+                      
+                      {analysisResults.content_analysis.objects && (
+                        <p className="mb-2"><strong>Objects:</strong> {analysisResults.content_analysis.objects.join(", ")}</p>
+                      )}
+                      
+                      {analysisResults.content_analysis.colors && (
+                        <p className="mb-2"><strong>Colors:</strong> {analysisResults.content_analysis.colors.join(", ")}</p>
+                      )}
+                      
+                      {analysisResults.content_analysis.mood && (
+                        <p className="mb-2"><strong>Mood:</strong> {analysisResults.content_analysis.mood}</p>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            {/* Document analysis results */}
+            {analysisResults.file_type === 'document' && (
+              <div>
+                <h3 className="text-lg font-medium mb-3">Document Analysis</h3>
+                <p className="mb-4"><strong>Summary:</strong> {analysisResults.summary}</p>
+                
+                {analysisResults.emotion_analysis && (
+                  <div className="mb-4">
+                    <h4 className="font-medium mb-2">Emotional Tone</h4>
+                    <div className="space-y-2">
+                      {Object.entries(analysisResults.emotion_analysis).map(([emotion, score]: [string, any]) => (
+                        <div key={emotion} className="flex items-center">
+                          <div className="w-24 text-sm capitalize">{emotion}</div>
+                          <div className="w-full bg-gray-200 rounded-full h-2.5 mx-2">
+                            <div 
+                              className="bg-blue-600 h-2.5 rounded-full" 
+                              style={{width: `${Math.round(score * 100)}%`}}
+                            ></div>
+                          </div>
+                          <div className="w-12 text-xs text-right">{Math.round(score * 100)}%</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {analysisResults.text_preview && (
+                  <div className="bg-gray-50 p-3 rounded text-sm">
+                    <h4 className="font-medium mb-2">Text Preview</h4>
+                    <p className="whitespace-pre-wrap">{analysisResults.text_preview}</p>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            <div className="flex justify-end mt-6">
+              <button 
+                onClick={() => setShowAnalysisModal(false)}
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
