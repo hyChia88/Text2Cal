@@ -1,147 +1,234 @@
 from flask import Flask, request, jsonify
+import json
+from datetime import datetime, timedelta
 from flask_cors import CORS
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
-import logging
-from datetime import datetime
-from functools import wraps
 import os
+import uuid
+
+# Import project modules
 from db_model import db
 from notion_helper import sync_to_notion, parse_text
-from openai_helper import generate_suggestion
-import warnings
+from openai_helper import OpenAIHelper
+from memory_analyzer import MemoryAnalyzer
+from memory_model import MemoryModel
+from recommendation import MemoryRecommendationEngine
+from file_processor import FileProcessor
+from utils import (generate_unique_id, clean_text, extract_log_date, 
+                  calculate_date_difference, format_log_display, categorize_log, 
+                  extract_tags_from_content, filter_logs_by_timeframe)
 
-# 配置日志
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    filename='app.log'
-)
-logger = logging.getLogger(__name__)
-
+# Initialize Flask app
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Enable CORS for all routes
 
-# 添加请求限制
-limiter = Limiter(
-    app=app,
-    key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"]
-)
+# Initialize components
+openai_helper = OpenAIHelper()
+memory_model = MemoryModel()
+memory_analyzer = MemoryAnalyzer(embedding_provider=memory_model.get_embedding)
+recommendation_engine = MemoryRecommendationEngine(memory_analyzer, memory_model)
+file_processor = FileProcessor(storage_dir="uploads")
 
-# 错误处理装饰器
-def handle_errors(f):
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        try:
-            return f(*args, **kwargs)
-        except Exception as e:
-            logger.error(f"Error in {f.__name__}: {str(e)}")
-            return jsonify({
-                "status": "error",
-                "message": "An internal error occurred"
-            }), 500
-    return wrapper
+# Create uploads directory if it doesn't exist
+os.makedirs("uploads", exist_ok=True)
 
+# Routes for basic log management
 @app.route("/api/add-log", methods=["POST"])
-@limiter.limit("20 per minute")
-@handle_errors
 def add_log():
+    """Add a new log entry."""
     data = request.get_json()
-    if not data or "log" not in data:
-        return jsonify({"status": "error", "message": "Missing log data"}), 400
+    log_text = data.get("log", "")
     
-    log_text = data["log"].strip()
     if not log_text:
-        return jsonify({"status": "error", "message": "Log text cannot be empty"}), 400
+        return jsonify({"status": "error", "message": "Log text is required"}), 400
     
-    # 尝试解析结构化格式
+    # Try to parse structured format
     try:
         events = parse_text(log_text)
         log_ids = []
         
         if events:
-            # 添加解析的事件
+            # Add parsed events
             for event in events:
-                # 添加到本地数据库
+                # Add to local database
                 log_id = db.add_log(
                     content=event['content'],
                     start_time=event['start'],
-                    end_time=event['end'],
-                    progress=0  # 初始进度为0
+                    end_time=event.get('end')
                 )
                 log_ids.append(log_id)
                 
-                # 同步到Notion
-                notion_id = sync_to_notion(
-                    content=event['content'],
-                    start_time=event['start'],
-                    end_time=event['end']
-                )
-                
-                # 生成AI反馈
-                ai_feedback = generate_suggestion()
-                db.update_log(log_id, ai_feedback=ai_feedback)
+                # Sync to Notion if enabled
+                try:
+                    notion_id = sync_to_notion(
+                        content=event['content'],
+                        start_time=event['start'],
+                        end_time=event.get('end')
+                    )
+                except Exception as e:
+                    print(f"Error syncing to Notion: {e}")
             
             return jsonify({"status": "success", "log_ids": log_ids})
         
     except Exception as e:
-        logger.error(f"解析事件时出错: {str(e)}")
-        return jsonify({"status": "error", "message": str(e)}), 400
+        print(f"Error parsing events: {e}")
     
-    # 如果没有事件或解析失败，添加为简单日志 (移除 progress 参数)
+    # If no events or parsing failed, add as simple log
+    # Extract date from content if available
+    log_date = extract_log_date(log_text)
+    start_time = log_date.isoformat() if log_date else datetime.now().isoformat()
+    
+    # Categorize log
+    category = categorize_log(log_text)
+    
+    # Extract tags
+    tags = extract_tags_from_content(log_text)
+    
+    # Add to database
+    log_id = db.add_log(
+        content=log_text,
+        start_time=start_time,
+        category=category,
+        tags=','.join(tags) if tags else None
+    )
+    
+    # Sync to Notion if enabled
     try:
-        log_id = db.add_log(content=log_text)
-        
-        # 同步到Notion作为简单任务
-        notion_id = sync_to_notion(content=log_text)
-        
-        # 生成AI反馈
-        ai_feedback = generate_suggestion()
-        db.update_log(log_id, ai_feedback=ai_feedback)
-        
-        return jsonify({"status": "success", "log_id": log_id, "notion_id": notion_id})
+        notion_id = sync_to_notion(content=log_text, start_time=start_time)
     except Exception as e:
-        logger.error(f"添加日志时出错: {str(e)}")
-        return jsonify({"status": "error", "message": str(e)}), 400
+        print(f"Error syncing to Notion: {e}")
+    
+    return jsonify({"status": "success", "log_id": log_id})
 
 @app.route("/api/logs", methods=["GET"])
-@limiter.limit("30 per minute")
-@handle_errors
 def get_logs():
-    try:
-        days = int(request.args.get('days', default=30))
-        if days < 1 or days > 365:
-            return jsonify({"status": "error", "message": "Days must be between 1 and 365"}), 400
-    except ValueError:
-        return jsonify({"status": "error", "message": "Invalid days parameter"}), 400
+    """Get logs with optional filtering."""
+    # Get query parameters
+    days = request.args.get('days', default=30, type=int)
+    category = request.args.get('category', default=None, type=str)
+    tag = request.args.get('tag', default=None, type=str)
+    query = request.args.get('query', default=None, type=str)
+    
+    # Get logs from database
     logs = db.get_logs(days)
     
-    # 格式化日志用于前端显示
+    # Apply additional filtering
+    if category:
+        logs = [log for log in logs if log.get('category') == category]
+    
+    if tag:
+        logs = [log for log in logs if tag in (log.get('tags', '').split(',') if log.get('tags') else [])]
+    
+    if query:
+        # Simple text search
+        query = query.lower()
+        logs = [log for log in logs if query in log.get('content', '').lower()]
+    
+    # Format logs for display
     formatted_logs = []
     for log in logs:
         start_time = datetime.fromisoformat(log['start_time'])
         
-        # 格式化显示时间
-        if log['end_time']:
+        # Format display time
+        if log.get('end_time'):
             end_time = datetime.fromisoformat(log['end_time'])
             time_display = f"[{start_time.strftime('%Y-%m-%d %H:%M')} - {end_time.strftime('%H:%M')}]"
         else:
-            time_display = f"[{start_time.strftime('%Y-%m-%d')}]"
+            time_display = f"[{start_time.strftime('%Y-%m-%d %H:%M')}]"
         
         formatted_logs.append({
             "id": log['id'],
-            "content": f"{time_display} {log['content']}"
+            "content": log['content'],
+            "formatted": f"{time_display} {log['content']}",
+            "start_time": log['start_time'],
+            "end_time": log.get('end_time'),
+            "category": log.get('category', 'General'),
+            "tags": log.get('tags', '').split(',') if log.get('tags') else [],
+            "importance": log.get('importance', 0.5)
         })
     
     return jsonify({"logs": formatted_logs})
 
+@app.route("/api/logs/<log_id>", methods=["GET"])
+def get_log(log_id):
+    """Get a specific log by ID."""
+    log = db.get_log(log_id)
+    
+    if not log:
+        return jsonify({"status": "error", "message": "Log not found"}), 404
+    
+    # Format the log
+    start_time = datetime.fromisoformat(log['start_time'])
+    time_display = start_time.strftime('%Y-%m-%d %H:%M')
+    
+    formatted_log = {
+        "id": log['id'],
+        "content": log['content'],
+        "formatted": f"[{time_display}] {log['content']}",
+        "start_time": log['start_time'],
+        "end_time": log.get('end_time'),
+        "category": log.get('category', 'General'),
+        "tags": log.get('tags', '').split(',') if log.get('tags') else [],
+        "importance": log.get('importance', 0.5),
+        "created_at": log.get('created_at')
+    }
+    
+    return jsonify({"log": formatted_log})
+
+@app.route("/api/logs/<log_id>", methods=["PUT"])
+def update_log(log_id):
+    """Update a log entry."""
+    data = request.get_json()
+    
+    # Check if log exists
+    log = db.get_log(log_id)
+    if not log:
+        return jsonify({"status": "error", "message": "Log not found"}), 404
+    
+    # Update fields
+    updates = {}
+    if 'content' in data:
+        updates['content'] = data['content']
+    
+    if 'start_time' in data:
+        updates['start_time'] = data['start_time']
+    
+    if 'end_time' in data:
+        updates['end_time'] = data['end_time']
+    
+    if 'category' in data:
+        updates['category'] = data['category']
+    
+    if 'tags' in data:
+        if isinstance(data['tags'], list):
+            updates['tags'] = ','.join(data['tags'])
+        else:
+            updates['tags'] = data['tags']
+    
+    if 'importance' in data:
+        updates['importance'] = data['importance']
+    
+    # Perform the update
+    success = db.update_log(log_id, **updates)
+    
+    if success:
+        # Sync changes to Notion if enabled
+        try:
+            if 'content' in updates or 'start_time' in updates or 'end_time' in updates:
+                sync_to_notion(
+                    content=updates.get('content', log['content']),
+                    start_time=updates.get('start_time', log['start_time']),
+                    end_time=updates.get('end_time', log.get('end_time'))
+                )
+        except Exception as e:
+            print(f"Error syncing updates to Notion: {e}")
+        
+        return jsonify({"status": "success"})
+    else:
+        return jsonify({"status": "error", "message": "Failed to update log"}), 500
+
 @app.route("/api/logs/<log_id>", methods=["DELETE"])
-@limiter.limit("10 per minute")
-@handle_errors
 def delete_log(log_id):
-    if not log_id:
-        return jsonify({"status": "error", "message": "Log ID is required"}), 400
+    """Delete a log entry."""
     success = db.delete_log(log_id)
     
     if success:
@@ -149,62 +236,403 @@ def delete_log(log_id):
     else:
         return jsonify({"status": "error", "message": "Log not found"}), 404
 
-@app.route("/api/logs/<log_id>/progress", methods=["PUT"])
-@limiter.limit("30 per minute")
-@handle_errors
-def update_progress(log_id):
+# Memory analysis and recommendation routes
+@app.route("/api/analyze/logs", methods=["GET"])
+def analyze_logs():
+    """Analyze logs to find patterns and insights."""
+    days = request.args.get('days', default=30, type=int)
+    
+    # Get logs
+    logs = db.get_logs(days)
+    
+    if not logs:
+        return jsonify({"message": "No logs found for analysis"}), 404
+    
+    # Generate insights using recommendation engine
+    insights = recommendation_engine.generate_memory_insights(logs, timeframe_days=days)
+    
+    return jsonify({"insights": insights})
+
+@app.route("/api/search", methods=["POST"])
+def search_memories():
+    """Search for memories based on content similarity."""
     data = request.get_json()
-    if not data or "progress" not in data:
-        return jsonify({"status": "error", "message": "Missing progress data"}), 400
+    query = data.get("query", "")
+    max_results = data.get("max_results", 10)
     
-    progress = data["progress"]
-    if not isinstance(progress, (int, float)) or progress < 0 or progress > 100:
-        return jsonify({"status": "error", "message": "Progress must be a number between 0 and 100"}), 400
+    if not query:
+        return jsonify({"status": "error", "message": "Query is required"}), 400
     
-    success = db.update_log(log_id, progress=progress)
-    if success:
-        return jsonify({"status": "success"})
-    else:
-        return jsonify({"status": "error", "message": "Log not found"}), 404
+    # Get logs from database
+    logs = db.get_logs(days=365)  # Search within past year
+    
+    if not logs:
+        return jsonify({"results": [], "message": "No logs found for search"})
+    
+    # Generate recommendations based on query
+    recommendations = recommendation_engine.get_recommendations(
+        query=query,
+        logs=logs,
+        max_results=max_results
+    )
+    
+    # Format the results
+    results = []
+    for rec in recommendations:
+        # Format start time
+        start_time = datetime.fromisoformat(rec.get('start_time', datetime.now().isoformat()))
+        time_display = start_time.strftime('%Y-%m-%d %H:%M')
+        
+        results.append({
+            "id": rec.get('id'),
+            "content": rec.get('content', ''),
+            "formatted": f"[{time_display}] {rec.get('content', '')}",
+            "relevance_score": rec.get('relevance_score', 0),
+            "start_time": rec.get('start_time'),
+            "category": rec.get('category', 'General')
+        })
+    
+    return jsonify({"results": results})
 
 @app.route("/api/suggestion", methods=["GET"])
-@limiter.limit("5 per minute")
-@handle_errors
-def suggestion():
-    """使用OpenAI生成基于用户日志的建议"""
+def get_suggestion():
+    """Generate suggestions based on recent logs."""
+    days = request.args.get('days', default=7, type=int)
+    language = request.args.get('language', default='en', type=str)
+    
+    # Get recent logs
+    recent_logs = db.get_logs(days)
+    
+    if not recent_logs:
+        if language == 'zh':
+            message = "没有找到最近的日志记录，无法生成建议。请添加一些日志，然后再试一次。"
+        else:
+            message = "No recent logs found. Please add some logs and try again."
+        return jsonify({"suggestion": message})
+    
+    # Generate suggestion using OpenAI helper
     try:
-        # 直接调用OpenAI助手的建议生成功能
-        suggestion_text = generate_suggestion()
+        suggestion_text = openai_helper.generate_suggestion(recent_logs, language)
         return jsonify({"suggestion": suggestion_text})
     except Exception as e:
-        print(f"生成建议时出错: {e}")
-        return jsonify({"suggestion": "生成建议时遇到错误，请稍后再试。"})
+        print(f"Error generating suggestion: {e}")
+        if language == 'zh':
+            message = f"生成建议时遇到错误: {str(e)}"
+        else:
+            message = f"Error generating suggestion: {str(e)}"
+        return jsonify({"suggestion": message})
 
-# 添加健康检查端点
-@app.route("/health", methods=["GET"])
-def health_check():
-    return jsonify({"status": "healthy", "timestamp": datetime.now().isoformat()})
+@app.route("/api/connections/<log_id>", methods=["GET"])
+def get_log_connections(log_id):
+    """Get connections between a log and other logs."""
+    # Get the target log
+    target_log = db.get_log(log_id)
+    
+    if not target_log:
+        return jsonify({"status": "error", "message": "Log not found"}), 404
+    
+    # Get other logs (excluding the target log)
+    all_logs = db.get_logs(days=90)  # Get logs from past 90 days
+    other_logs = [log for log in all_logs if log['id'] != log_id]
+    
+    if not other_logs:
+        return jsonify({"connections": [], "message": "No other logs found for comparison"})
+    
+    # Find connections using memory analyzer
+    connections = []
+    
+    # 1. Find temporal connections
+    temporal_connections = memory_analyzer.generate_temporal_connections([target_log] + other_logs)
+    temporal_connected_ids = temporal_connections.get(log_id, [])
+    
+    # 2. Find semantic connections using memory model
+    log_embeddings = {}
+    target_embedding = None
+    
+    try:
+        # Generate embeddings for target log
+        target_embedding = memory_model.get_embedding(target_log['content'])
+        
+        # Generate embeddings for other logs
+        for log in other_logs:
+            log_embeddings[log['id']] = memory_model.get_embedding(log['content'])
+        
+        # Find similar logs
+        similar_logs = memory_model.find_similar_logs(
+            target_embedding, 
+            log_embeddings, 
+            top_k=5
+        )
+        
+        # Add semantic connections
+        for log_id, similarity in similar_logs:
+            if similarity > 0.5:  # Only include reasonably similar logs
+                connected_log = next((log for log in other_logs if log['id'] == log_id), None)
+                if connected_log:
+                    connections.append({
+                        "log": connected_log,
+                        "connection_type": "Semantic Similarity",
+                        "explanation": "Content similarity based on semantic analysis",
+                        "similarity_score": similarity
+                    })
+    except Exception as e:
+        print(f"Error finding semantic connections: {e}")
+    
+    # 3. Add temporal connections that aren't already included
+    for log_id in temporal_connected_ids:
+        # Check if this log is already in connections
+        if not any(c['log'].get('id') == log_id for c in connections):
+            connected_log = next((log for log in other_logs if log['id'] == log_id), None)
+            if connected_log:
+                connections.append({
+                    "log": connected_log,
+                    "connection_type": "Temporal Proximity",
+                    "explanation": "Logs created around the same time",
+                    "similarity_score": 0.7  # Default score for temporal connections
+                })
+    
+    # Format the connections for response
+    formatted_connections = []
+    for connection in connections:
+        log = connection['log']
+        formatted_connections.append({
+            "id": log['id'],
+            "content": log['content'],
+            "start_time": log['start_time'],
+            "connection_type": connection['connection_type'],
+            "explanation": connection['explanation'],
+            "similarity_score": connection['similarity_score']
+        })
+    
+    return jsonify({"connections": formatted_connections})
 
-# 添加根路由处理
-@app.route("/", methods=["GET"])
-def index():
+# File handling routes
+@app.route("/api/upload", methods=["POST"])
+def upload_file():
+    """Upload a file and extract information from it."""
+    if 'file' not in request.files:
+        return jsonify({"status": "error", "message": "No file part"}), 400
+    
+    file = request.files['file']
+    
+    if file.filename == '':
+        return jsonify({"status": "error", "message": "No selected file"}), 400
+    
+    try:
+        # Save the file
+        file_data = file.read()
+        file_path = file_processor.save_file(file_data, file.filename)
+        
+        # Get file metadata
+        metadata = file_processor.get_file_metadata(file_path)
+        
+        # Extract text content if possible
+        text_content = file_processor.extract_text_from_file(file_path)
+        
+        # Generate a summary of the file
+        summary = ""
+        if text_content:
+            try:
+                summary = openai_helper.generate_log_summary([{"content": text_content}], max_length=200)
+            except Exception as e:
+                print(f"Error generating file summary: {e}")
+                summary = "Could not generate summary"
+        
+        # Create a log entry for the file
+        log_content = f"File uploaded: {file.filename}"
+        if summary:
+            log_content += f"\nSummary: {summary}"
+        
+        log_id = db.add_log(
+            content=log_content,
+            start_time=datetime.now().isoformat(),
+            category="File",
+            metadata=json.dumps({
+                "file_path": file_path,
+                "file_type": metadata.get("file_type", ""),
+                "file_size": metadata.get("size_bytes", 0),
+                "has_text": bool(text_content)
+            })
+        )
+        
+        return jsonify({
+            "status": "success",
+            "file_path": file_path,
+            "metadata": metadata,
+            "summary": summary,
+            "log_id": log_id
+        })
+        
+    except Exception as e:
+        print(f"Error processing file: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/api/files/<log_id>/analyze", methods=["GET"])
+def analyze_file(log_id):
+    """Analyze a file associated with a log."""
+    # Get the log
+    log = db.get_log(log_id)
+    
+    if not log:
+        return jsonify({"status": "error", "message": "Log not found"}), 404
+    
+    # Check if this is a file log
+    if log.get('category') != "File":
+        return jsonify({"status": "error", "message": "This log is not associated with a file"}), 400
+    
+    # Extract file path from metadata
+    try:
+        metadata = json.loads(log.get('metadata', '{}'))
+        file_path = metadata.get('file_path')
+        
+        if not file_path or not os.path.exists(file_path):
+            return jsonify({"status": "error", "message": "File not found"}), 404
+        
+        # Determine file type
+        file_ext = os.path.splitext(file_path)[1].lower()
+        
+        # Analyze based on file type
+        if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']:
+            # Image analysis
+            try:
+                # Get sensory descriptions
+                sensory_descriptions = openai_helper.get_sensory_descriptions(file_path)
+                
+                # Get content analysis
+                content_analysis = openai_helper.analyze_image_content(file_path)
+                
+                return jsonify({
+                    "status": "success",
+                    "file_type": "image",
+                    "sensory_descriptions": sensory_descriptions,
+                    "content_analysis": content_analysis
+                })
+            except Exception as e:
+                print(f"Error analyzing image: {e}")
+                return jsonify({"status": "error", "message": f"Error analyzing image: {str(e)}"}), 500
+        
+        elif file_ext in ['.pdf', '.docx', '.doc', '.txt']:
+            # Text document analysis
+            try:
+                # Extract text
+                text_content = file_processor.extract_text_from_file(file_path)
+                
+                # Generate a summary
+                summary = openai_helper.generate_log_summary([{"content": text_content}], max_length=300)
+                
+                # Analyze emotional tone
+                emotion_analysis = openai_helper.analyze_log_emotion(text_content[:1000])  # Limit to first 1000 chars
+                
+                return jsonify({
+                    "status": "success",
+                    "file_type": "document",
+                    "summary": summary,
+                    "emotion_analysis": emotion_analysis,
+                    "text_length": len(text_content),
+                    "text_preview": text_content[:500] + "..." if len(text_content) > 500 else text_content
+                })
+            except Exception as e:
+                print(f"Error analyzing document: {e}")
+                return jsonify({"status": "error", "message": f"Error analyzing document: {str(e)}"}), 500
+        
+        else:
+            # Generic file analysis
+            file_summary = file_processor.get_file_summary(file_path)
+            return jsonify({
+                "status": "success",
+                "file_type": "other",
+                "file_summary": file_summary
+            })
+        
+    except Exception as e:
+        print(f"Error processing file analysis: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+# Stats and dashboard routes
+@app.route("/api/stats", methods=["GET"])
+def get_stats():
+    """Get statistics about logs and usage."""
+    days = request.args.get('days', default=30, type=int)
+    
+    # Get logs
+    logs = db.get_logs(days)
+    
+    if not logs:
+        return jsonify({
+            "total_logs": 0,
+            "logs_by_category": {},
+            "logs_by_day": {},
+            "logs_by_hour": {}
+        })
+    
+    # Calculate basic stats
+    total_logs = len(logs)
+    
+    # Group by category
+    logs_by_category = {}
+    for log in logs:
+        category = log.get('category', 'General')
+        logs_by_category[category] = logs_by_category.get(category, 0) + 1
+    
+    # Group by day
+    logs_by_day = {}
+    for log in logs:
+        dt = datetime.fromisoformat(log['start_time'])
+        day = dt.strftime('%Y-%m-%d')
+        logs_by_day[day] = logs_by_day.get(day, 0) + 1
+    
+    # Group by hour
+    logs_by_hour = {}
+    for log in logs:
+        dt = datetime.fromisoformat(log['start_time'])
+        hour = dt.hour
+        logs_by_hour[hour] = logs_by_hour.get(hour, 0) + 1
+    
+    # Most active days
+    most_active_days = sorted(logs_by_day.items(), key=lambda x: x[1], reverse=True)[:5]
+    
+    # Most active hours
+    most_active_hours = sorted(logs_by_hour.items(), key=lambda x: x[1], reverse=True)[:5]
+    
     return jsonify({
-        "status": "running",
-        "message": "Text2Cal API is running",
-        "endpoints": {
-            "add_log": "/api/add-log",
-            "get_logs": "/api/logs",
-            "delete_log": "/api/logs/<log_id>",
-            "update_progress": "/api/logs/<log_id>/progress",
-            "suggestion": "/api/suggestion",
-            "health": "/health"
-        }
+        "total_logs": total_logs,
+        "logs_by_category": logs_by_category,
+        "logs_by_day": logs_by_day,
+        "logs_by_hour": logs_by_hour,
+        "most_active_days": most_active_days,
+        "most_active_hours": most_active_hours
     })
 
-if __name__ == "__main__":
-    # 确保日志目录存在
-    if not os.path.exists('logs'):
-        os.makedirs('logs')
+@app.route("/api/categories", methods=["GET"])
+def get_categories():
+    """Get all log categories."""
+    logs = db.get_logs(days=365)  # Get all logs from past year
     
-    # 添加调试模式
+    categories = set()
+    for log in logs:
+        category = log.get('category')
+        if category:
+            categories.add(category)
+    
+    return jsonify({"categories": list(categories)})
+
+@app.route("/api/tags", methods=["GET"])
+def get_tags():
+    """Get all tags used in logs."""
+    logs = db.get_logs(days=365)  # Get all logs from past year
+    
+    all_tags = set()
+    for log in logs:
+        tags_str = log.get('tags', '')
+        if tags_str:
+            tags = tags_str.split(',')
+            all_tags.update(tags)
+    
+    # Sort tags alphabetically
+    sorted_tags = sorted(list(all_tags))
+    
+    return jsonify({"tags": sorted_tags})
+
+# Main entry point
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
