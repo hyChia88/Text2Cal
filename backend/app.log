@@ -132,3 +132,112 @@
 2025-03-25 05:41:45,335 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
 2025-03-25 05:41:54,685 - werkzeug - WARNING -  * Debugger is active!
 2025-03-25 05:41:54,695 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 01:39:38,385 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.2:5000
+2025-03-30 01:39:38,386 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-30 01:39:38,424 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 01:39:47,656 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 01:39:47,670 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 01:41:16,836 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 01:41:16] "OPTIONS /api/add-log HTTP/1.1" 200 -
+2025-03-30 01:41:24,947 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-30 01:41:24,992 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 01:41:24] "POST /api/add-log HTTP/1.1" 200 -
+2025-03-30 01:41:28,049 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-30 01:41:28,051 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 01:41:28] "GET /api/suggestion HTTP/1.1" 200 -
+2025-03-30 01:53:38,991 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 01:53:38] "OPTIONS /api/add-log HTTP/1.1" 200 -
+2025-03-30 01:53:45,180 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-30 01:53:45,242 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 01:53:45] "POST /api/add-log HTTP/1.1" 200 -
+2025-03-30 01:53:51,601 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-30 01:53:51,604 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 01:53:51] "GET /api/suggestion HTTP/1.1" 200 -
+2025-03-30 02:07:11,511 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 02:07:11] "OPTIONS /api/add-log HTTP/1.1" 200 -
+2025-03-30 02:07:15,724 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-30 02:07:15,767 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 02:07:15] "POST /api/add-log HTTP/1.1" 200 -
+2025-03-30 02:07:18,149 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-30 02:07:18,154 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 02:07:18] "GET /api/suggestion HTTP/1.1" 200 -
+2025-03-30 02:21:50,011 - werkzeug - INFO -  * Detected change in 'C:\\Users\\huiye\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\datetime.py', reloading
+2025-03-30 02:21:52,356 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 02:22:06,861 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 02:22:06,873 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 02:22:41,883 - werkzeug - INFO -  * Detected change in 'C:\\Users\\huiye\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\typing.py', reloading
+2025-03-30 02:22:42,871 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 02:22:51,208 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 02:22:51,218 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 02:23:08,368 - werkzeug - INFO -  * Detected change in 'D:\\ahYen Workspace\\ahYen Work\\Side projects\\Text2Cal\\backend\\notion_helper.py', reloading
+2025-03-30 02:23:09,992 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 02:23:20,282 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 02:23:20,297 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 02:23:28,161 - werkzeug - INFO -  * Detected change in 'C:\\Users\\huiye\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\inspect.py', reloading
+2025-03-30 02:23:29,250 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 02:23:38,601 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 02:23:38,608 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 02:24:02,274 - werkzeug - INFO -  * Detected change in 'C:\\Users\\huiye\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\os.py', reloading
+2025-03-30 02:24:03,938 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 02:24:14,769 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 02:24:14,777 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 02:57:53,045 - werkzeug - INFO -  * Detected change in 'D:\\ahYen Workspace\\ahYen Work\\Side projects\\Text2Cal\\backend\\app.py', reloading
+2025-03-30 02:57:55,871 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 02:58:23,035 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 02:58:23,073 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 02:58:36,441 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 02:58:36] "[33mGET /api/debug/logs HTTP/1.1[0m" 404 -
+2025-03-30 02:58:37,341 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 02:58:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-30 02:58:41,218 - werkzeug - INFO -  * Detected change in 'D:\\ahYen Workspace\\ahYen Work\\Side projects\\Text2Cal\\backend\\app.py', reloading
+2025-03-30 02:58:41,218 - werkzeug - INFO -  * Detected change in 'D:\\ahYen Workspace\\ahYen Work\\Side projects\\Text2Cal\\backend\\app.py', reloading
+2025-03-30 02:58:41,438 - werkzeug - INFO -  * Detected change in 'D:\\ahYen Workspace\\ahYen Work\\Side projects\\Text2Cal\\backend\\app.py', reloading
+2025-03-30 02:58:41,442 - werkzeug - INFO -  * Detected change in 'D:\\ahYen Workspace\\ahYen Work\\Side projects\\Text2Cal\\backend\\app.py', reloading
+2025-03-30 02:58:43,244 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 02:58:53,687 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 02:58:53,694 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 03:00:53,241 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 03:00:53] "GET /api/debug/logs HTTP/1.1" 200 -
+2025-03-30 03:01:31,960 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 03:01:31] "[33mGET /api/health HTTP/1.1[0m" 404 -
+2025-03-30 03:01:33,941 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 03:01:33] "[33mGET /api/health HTTP/1.1[0m" 404 -
+2025-03-30 03:01:37,961 - werkzeug - INFO -  * Detected change in 'C:\\Users\\huiye\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\types.py', reloading
+2025-03-30 03:01:39,377 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 03:01:51,387 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 03:01:51,403 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 03:01:57,664 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-30 03:01:57,676 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 03:01:57] "GET /api/suggestion HTTP/1.1" 200 -
+2025-03-30 03:02:36,271 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 03:02:36] "[31m[1mGET /api/logs/1/progress HTTP/1.1[0m" 405 -
+2025-03-30 03:02:41,188 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 03:02:41] "[33mGET /api/logs/1/ HTTP/1.1[0m" 404 -
+2025-03-30 03:02:49,008 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 03:02:49] "[31m[1mGET /api/logs/1 HTTP/1.1[0m" 405 -
+2025-03-30 03:02:59,763 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 03:02:59] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 03:03:41,430 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 03:03:41] "[31m[1mGET /api/add-log HTTP/1.1[0m" 405 -
+2025-03-30 04:51:33,405 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.2:5000
+2025-03-30 04:51:33,405 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-30 04:51:33,446 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 04:51:44,023 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 04:51:44,034 - werkzeug - INFO -  * Debugger PIN: 187-904-583
+2025-03-30 04:57:21,777 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:21] "[31m[1mGET /api/add-log HTTP/1.1[0m" 405 -
+2025-03-30 04:57:30,951 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:30] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 04:57:35,885 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:35] "OPTIONS /api/logs/67e8df8fe2ad3a54d0e5609a HTTP/1.1" 200 -
+2025-03-30 04:57:36,215 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:36] "DELETE /api/logs/67e8df8fe2ad3a54d0e5609a HTTP/1.1" 200 -
+2025-03-30 04:57:36,243 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:36] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 04:57:38,002 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:38] "OPTIONS /api/logs/67e8dc63e2ad3a54d0e56098 HTTP/1.1" 200 -
+2025-03-30 04:57:38,290 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:38] "DELETE /api/logs/67e8dc63e2ad3a54d0e56098 HTTP/1.1" 200 -
+2025-03-30 04:57:38,352 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:38] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 04:57:39,202 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:39] "OPTIONS /api/logs/67e8d97de2ad3a54d0e56096 HTTP/1.1" 200 -
+2025-03-30 04:57:39,541 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:39] "DELETE /api/logs/67e8d97de2ad3a54d0e56096 HTTP/1.1" 200 -
+2025-03-30 04:57:39,841 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:39] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 04:57:40,667 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:40] "OPTIONS /api/logs/67e26c1ce62d017a70c00e44 HTTP/1.1" 200 -
+2025-03-30 04:57:41,034 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:41] "DELETE /api/logs/67e26c1ce62d017a70c00e44 HTTP/1.1" 200 -
+2025-03-30 04:57:41,266 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:41] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 04:57:41,825 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:41] "OPTIONS /api/logs/67e26797e62d017a70c00e42 HTTP/1.1" 200 -
+2025-03-30 04:57:42,170 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:42] "DELETE /api/logs/67e26797e62d017a70c00e42 HTTP/1.1" 200 -
+2025-03-30 04:57:42,412 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:42] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 04:57:43,715 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:43] "OPTIONS /api/logs/67e2607afb04bc2ca17acae7 HTTP/1.1" 200 -
+2025-03-30 04:57:43,990 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:43] "DELETE /api/logs/67e2607afb04bc2ca17acae7 HTTP/1.1" 200 -
+2025-03-30 04:57:44,046 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:44] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 04:57:44,559 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:44] "OPTIONS /api/logs/67e25fe2836d10df37d059e4 HTTP/1.1" 200 -
+2025-03-30 04:57:44,902 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:44] "DELETE /api/logs/67e25fe2836d10df37d059e4 HTTP/1.1" 200 -
+2025-03-30 04:57:45,152 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:57:45] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 04:58:47,092 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 04:58:47] "GET /api/logs HTTP/1.1" 200 -
+2025-03-30 05:00:42,270 - werkzeug - INFO -  * Detected change in 'C:\\Users\\huiye\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\datetime.py', reloading
+2025-03-30 05:00:42,321 - werkzeug - INFO -  * Detected change in 'C:\\Users\\huiye\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\functools.py', reloading
+2025-03-30 05:00:42,405 - werkzeug - INFO -  * Detected change in 'D:\\ahYen Workspace\\ahYen Work\\Side projects\\Text2Cal\\backend\\notion_helper.py', reloading
+2025-03-30 05:00:42,416 - werkzeug - INFO -  * Detected change in 'D:\\ahYen Workspace\\ahYen Work\\Side projects\\Text2Cal\\backend\\openai_helper.py', reloading
+2025-03-30 05:00:43,986 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 05:00:54,427 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 05:00:54,436 - werkzeug - INFO -  * Debugger PIN: 187-904-583
