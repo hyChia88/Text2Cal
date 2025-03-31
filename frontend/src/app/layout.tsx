@@ -13,16 +13,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Memory Log - Store and Visualize Your Memories",
-  description: "An experimental tool to log your memories, visualize your past, and gain insights through AI.",
-  keywords: "memory log, personal journal, diary, AI insights, visualization",
+  title: "Memory Log - Store and Visualize Your Memory Patterns",
+  description: "An experimental tool to log your memories, visualize your past, and gain personalized insights through AI attention mechanisms.",
+  keywords: "memory log, personal journal, diary, memory attention, AI insights, visualization, memory patterns",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       <head>
@@ -30,11 +30,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      <body 
+        className="geist_e531dabc-module__QGiZLq__variable geist_mono_68a01160-module__YLcDdW__varia..."
+        suppressHydrationWarning={true}
       >
         {children}
       </body>
     </html>
-  );
+  )
 }

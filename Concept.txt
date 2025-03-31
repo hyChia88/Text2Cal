@@ -1,0 +1,27 @@
+Log your Memory…What are you?
+CONCEPT: Making Memory Dynamic and Contextual
+Have you tried the viral ChatGPT trend, "Based on what you know about me, generate an image of me"? But what is the connection between memories? How are memories connected, compiled and brought forward to the next epochs of generations? Besides, how far can memories be remembered?
+Memory Log is an experimental diary/log generator that treats personal memory as a dynamic contextual system rather than static entries. It fundamentally reimagines how we interact with our past experiences by creating bidirectional bridges between past memories and future possibilities.
+The project leverages a unique approach where users continuously input data through text logs and images, which are embedded into a semantic memory space. When guidance is needed, the system retrieves contextually relevant memories and generates personalized insights. The interactive interface allows users to visualize how different memories influence current suggestions, with controls to manually adjust the importance of specific experiences.
+What makes this approach distinctive is the self-attention mechanism that dynamically weights relevant memories. As you log more entries, the system builds a semantic network of your experiences, creating connections between related moments even if they occurred at different times. The timeline visualization shows your memory density over time, allowing you to navigate through your personal history.
+The AI analysis functionality goes beyond simple recall - it processes images through sensory descriptions (sight, sound, smell, touch, taste, emotion) and analyzes emotional tones in text documents, creating a richer representation of memories that mimics how human recollection actually works.
+By treating memory as a living network rather than an archive, Memory Log offers a novel way to understand ourselves through our past. It raises fascinating questions about memory persistence, attention, and the very nature of how our experiences shape our identity.
+Do you know what you are? You are the sum of your memories - let's explore them together.
+ 
+ 
+ 
+UIUX flow:
+Log your memories:
+1.	Log your memories, your diary, feelings, a bereal snapshot of you.
+2.	Visual your memories, connect btwn them. Manually adjust your memories weight
+
+What are you? 
+3.	Based on your memories, model autocomplete your log.
+4.	Refresh your status every hours (in demo we show it 1 hour)
+
+Interface:
+1.	Make it a note pad, bold the text that model generate and modified.
+2.	On right corner there is profile status picture (round), that model generate when on click (in the real scenario it will be automatically regenerated based on the log text in every 1 hr)
+Technology:
+1.	Synthetic data curation
+2.	Self-attention module

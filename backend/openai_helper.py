@@ -646,3 +646,84 @@ Only include logs with genuine connections (relevance score > 0.3).
         except Exception as e:
             print(f"Error generating log connections: {e}")
             return []
+        
+    def generate_memory_completion(self, memory_chunks: List[Dict[str, Any]], weights: Dict[str, float]) -> Dict[str, Any]:
+        """
+        Generate a completed memory by enhancing and refining memory chunks based on weights.
+        
+        Args:
+            memory_chunks: List of memory chunks
+            weights: Mapping from memory ID to weight
+            
+        Returns:
+            Generated complete memory text
+        """
+        if not memory_chunks:
+            return ""
+        
+        # Sort memories by weight
+        sorted_memories = sorted(
+            [(memory, weights.get(memory.get('id', ''), 0.5)) for memory in memory_chunks],
+            key=lambda x: x[1],
+            reverse=True
+        )
+        
+        # Extract and format original memory content
+        original_texts = []
+        for memory, _ in sorted_memories:
+            content = memory.get('content', '')
+            if content:
+                original_texts.append(f"**{content}**")
+        
+        original_combined = '\n\n'.join(original_texts)
+        
+        # Create system prompt
+        system_prompt = """You are a memory enhancement system. Your task is to refine and enhance the user's memory content.
+        Follow these rules:
+        1. Prioritize maintaining the original memory structure, respecting event sequences.
+        2. Improve the coherence and completeness of memories by filling gaps and clarifying ambiguous parts.
+        3. It is acceptable to overwrite or adjust memories to ensure a logical and emotionally consistent narrative.
+        4. Maintain the tone, voice, and style of the original content and replicate while enhancing it.
+        5. Ensure smooth transitions between events without altering the sequence of memories.
+        6. Ensure all original memory content remains enclosed within double asterisks (**). Do not remove the bold formatting.
+        """
+        
+        # User prompt
+        user_prompt = f"""Below are my original memory entries, ordered by importance. Enhance the clarity, link the memories and coherence of these memories by making adjustments as needed, but maintain the original sequence of events, feel free to make adjustment and make the content coherent, response in paragraphs:
+
+    {original_combined}
+
+    Note: Preserve the flow of events while making reasonable adjustments within each chunk to improve understanding and emotional accuracy. Keep the original text bolded using ** to indicate the exact keywords."""
+        
+        # Call OpenAI API
+        try:
+            messages = [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ]
+            
+            response = self._call_openai_api(
+                "chat/completions",
+                {
+                    "messages": messages,
+                    "model": "gpt-4-turbo",
+                    "max_tokens": 1500,
+                    "temperature": 0.7,
+                }
+            )
+            
+            # Extract completed text
+            completion = response['choices'][0]['message']['content'].strip()
+            original_contents = [memory.get('content', '') for memory in memory_chunks]
+            
+            return {
+                "completion": completion,
+                "original_contents": original_contents
+            }
+            
+        except Exception as e:
+            print(f"Error generating memory completion: {e}")
+            return {
+                "completion": original_combined,
+                "original_contents": original_contents
+            }  # Return original content on failure

@@ -1,0 +1,101 @@
+id,content,start_time,end_time,category,tags,importance,type
+0,"Today I thought about Course. I feel Focused, hoping for a breakthrough.",2025-02-21T18:00:41.121369,,Idea,"Meeting,Thinking",0.79,diary
+1,"Today I thought about Thinking. I feel Tired, hoping for a breakthrough.",2025-02-05T09:53:49.055012,,Note,"Course,Excited",0.44,diary
+2,"Today I thought about Course. I feel Focused, hoping for a breakthrough.",2025-01-18T16:33:21.452024,,Research,"Excited,Focused",0.55,diary
+3,"Today I thought about Inspiration. I feel Curious, hoping for a breakthrough.",2025-01-16T21:40:47.074765,2025-01-16T23:40:47.074765,General,"Project,Reading,Satisfied",0.49,diary
+4,"Today I thought about Thinking. I feel Focused, hoping for a breakthrough.",2025-03-29T18:36:18.977474,,Meeting,"Tired,Reading,Excited",0.61,diary
+5,"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",2025-01-10T16:05:03.959263,,Research,"Thinking,Reading",0.6,diary
+6,"@01/03/2025 discussing Reading, feeling Confused.",2025-01-03T09:49:54.967357,,Meeting,"Satisfied,Focused,Research",0.85,log
+7,"@01/18/2025 discussing Meeting, feeling Confused.",2025-01-18T04:41:40.365398,2025-01-18T07:41:40.365398,Meeting,"Research,Project",0.38,log
+8,"@02/27/2025 with Mentor discussing Research, feeling Excited.",2025-02-27T18:07:18.565875,,Meeting,"Inspiration,Thinking,Tired",0.85,log
+9,"@03/30/2025 with Classmate discussing Inspiration, feeling Tired.",2025-03-30T03:24:16.708088,,Meeting,"Thinking,Reading",0.76,log
+10,"Today I thought about Meeting. I feel Focused, hoping for a breakthrough.",2024-12-31T00:07:50.303636,,General,Project,0.96,diary
+11,"@02/15/2025 at Office discussing Inspiration, feeling Excited.",2025-02-15T10:10:26.006299,2025-02-15T11:10:26.006299,Note,Focused,0.73,log
+12,"@03/22/2025 with Classmate discussing Project, feeling Satisfied.",2025-03-22T20:12:10.960305,2025-03-22T23:12:10.960305,General,"Meeting,Research",0.83,log
+13,"@01/19/2025 at Office discussing Thinking, feeling Confused.",2025-01-19T22:09:05.386869,2025-01-20T00:09:05.386869,Research,Project,0.74,log
+14,"@03/11/2025 with Team member discussing Course, feeling Confused.",2025-03-11T17:47:27.623537,,General,"Curious,Satisfied",0.39,log
+15,"@03/22/2025 with Professor discussing Project, feeling Satisfied.",2025-03-22T13:01:18.896282,,Idea,Research,0.98,log
+16,"@01/17/2025 with Mentor at Office discussing Project, feeling Confused.",2025-01-17T21:48:04.311221,,Task,"Inspiration,Excited,Research",0.93,log
+17,"Today I thought about Project. I feel Confused, hoping for a breakthrough.",2025-03-08T05:52:51.770658,,Note,"Course,Excited",0.82,diary
+18,"Today I thought about Course. I feel Curious, hoping for a breakthrough.",2025-03-05T23:28:44.109868,,Idea,"Meeting,Confused",0.37,diary
+19,"Today I thought about Study. I feel Focused, hoping for a breakthrough.",2025-01-16T08:08:56.309770,,Research,"Tired,Confused",0.85,diary
+20,"Thinking back to the discussion about Study from a few days ago, I feel we need to explore it deeper.",2025-01-20T08:08:56.309770,2025-01-17T04:59:09.885918,Note,"Satisfied,Meeting,Focused,Study",0.48,log
+21,"Today I thought about Project. I feel Excited, hoping for a breakthrough.",2025-01-19T02:05:32.813491,,General,Course,0.57,diary
+22,"@01/07/2025 with Mentor at Cafe discussing Meeting, feeling Confused.",2025-01-07T18:08:48.483699,,Idea,"Focused,Study",0.58,log
+23,"@01/14/2025 Continuing research on Meeting, feeling Confused. Made new discoveries.",2025-01-14T18:08:48.483699,,Research,"Satisfied,Tired,Research,Meeting",0.43,diary
+24,"@03/16/2025 with Professor at Lab discussing Meeting, feeling Excited.",2025-03-16T09:07:52.773802,,Research,"Thinking,Focused",0.67,log
+25,"@03/12/2025 with Friend discussing Meeting, feeling Excited.",2025-03-12T05:27:48.609564,,Research,Research,0.36,log
+26,"Today I thought about Study. I feel Focused, hoping for a breakthrough.",2025-03-10T10:32:48.317257,,Note,Meeting,0.45,diary
+27,"Today I thought about Course. I feel Confused, hoping for a breakthrough.",2025-03-12T05:04:15.109477,,Idea,"Curious,Satisfied,Excited",0.48,diary
+28,"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",2025-01-12T01:40:53.301436,,Research,"Thinking,Focused",0.71,diary
+29,"Today I thought about Study. I feel Tired, hoping for a breakthrough.",2025-03-14T11:14:15.770205,2025-03-14T13:14:15.770205,Meeting,Course,0.45,diary
+30,"@01/19/2025 at Office discussing Study, feeling Tired.",2025-01-19T02:00:30.110757,,Idea,"Project,Research,Inspiration",0.33,log
+31,"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",2025-01-13T22:06:29.994042,,Research,"Confused,Inspiration",0.79,diary
+32,"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",2025-02-10T03:36:40.194621,,Meeting,Inspiration,0.97,diary
+33,"@02/13/2025 Continuing research on Reading, feeling Satisfied. Made new discoveries.",2025-02-13T03:36:40.194621,,Note,"Course,Reading",0.68,log
+34,"Thinking back to the discussion about Reading from a few days ago, I feel we need to explore it deeper.",2025-02-12T03:36:40.194621,,General,"Excited,Reading",0.73,log
+35,"Thinking back to the discussion about Course from a few days ago, I feel we need to explore it deeper.",2025-03-17T12:27:33.991961,,Note,"Thinking,Curious,Course",0.69,log
+36,"@02/14/2025 with Mentor discussing Reading, feeling Satisfied.",2025-02-14T15:27:49.199473,,Note,"Inspiration,Excited,Project",0.81,log
+37,"Thinking back to the discussion about Reading from a few days ago, I feel we need to explore it deeper.",2025-02-16T15:27:49.199473,2025-03-20T15:38:24.454262,Idea,"Inspiration,Reading",0.84,log
+38,"Today I thought about Thinking. I feel Satisfied, hoping for a breakthrough.",2025-02-22T20:10:11.825685,,Idea,Project,0.81,diary
+39,"Today I thought about Reading. I feel Confused, hoping for a breakthrough.",2025-01-11T18:58:12.285227,,Meeting,"Satisfied,Tired",1.0,diary
+40,"@01/26/2025 with Classmate discussing Course, feeling Excited.",2025-01-26T05:04:21.061111,2025-01-26T07:04:21.061111,Research,Excited,0.63,log
+41,"Today I thought about Study. I feel Satisfied, hoping for a breakthrough.",2025-01-30T17:26:04.180644,,Meeting,Satisfied,0.99,diary
+42,"@03/23/2025 with Team member discussing Thinking, feeling Tired.",2025-03-23T08:50:58.577696,,Meeting,Study,0.66,log
+43,"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",2025-03-12T14:15:24.383987,,Note,"Meeting,Excited,Research",0.92,diary
+44,"@02/05/2025 with Classmate at Cafe discussing Reading, feeling Excited.",2025-02-05T00:08:53.168650,,General,"Curious,Satisfied",0.65,log
+45,"@01/15/2025 discussing Meeting, feeling Satisfied.",2025-01-15T18:52:38.535864,,Meeting,Course,0.96,log
+46,"Today I thought about Thinking. I feel Focused, hoping for a breakthrough.",2025-03-12T01:51:44.464199,,Research,"Confused,Course",0.67,diary
+47,"Today I thought about Reading. I feel Curious, hoping for a breakthrough.",2025-01-20T14:42:05.539066,,Meeting,"Inspiration,Course,Reading",0.63,diary
+48,"@02/01/2025 with Mentor at Office discussing Project, feeling Focused.",2025-02-01T02:39:02.306756,,Note,Thinking,0.94,log
+49,"@03/09/2025 discussing Course, feeling Tired.",2025-03-09T07:31:39.899487,,General,"Study,Satisfied",0.51,log
+50,"@03/17/2025 at Office discussing Project, feeling Confused.",2025-03-17T16:57:48.237809,2025-03-17T18:57:48.237809,General,"Focused,Project,Course",0.74,log
+51,"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",2025-01-30T07:17:25.494942,,Meeting,Meeting,0.79,diary
+52,"Today I thought about Course. I feel Excited, hoping for a breakthrough.",2025-03-11T15:19:28.157455,,Meeting,"Inspiration,Project",0.62,diary
+53,"@01/22/2025 with Friend at Classroom discussing Course, feeling Excited.",2025-01-22T17:24:47.681034,,General,Curious,0.79,log
+54,"@01/25/2025 with Classmate discussing Research, feeling Excited.",2025-01-25T06:27:58.462844,,Research,"Thinking,Course,Satisfied",0.41,log
+55,"@02/01/2025 Continuing research on Research, feeling Excited. Made new discoveries.",2025-02-01T06:27:58.462844,,Meeting,"Course,Meeting,Research",0.98,diary
+56,"Today I thought about Inspiration. I feel Excited, hoping for a breakthrough.",2025-01-12T00:18:10.472984,2025-01-12T02:18:10.472984,Note,Project,0.79,diary
+57,"Today I thought about Thinking. I feel Satisfied, hoping for a breakthrough.",2025-01-30T02:50:45.508204,,Idea,Meeting,0.6,diary
+58,"Today I thought about Thinking. I feel Tired, hoping for a breakthrough.",2025-03-16T16:47:08.649404,,Meeting,Focused,0.45,diary
+59,"@02/13/2025 discussing Meeting, feeling Tired.",2025-02-13T10:02:37.218239,,Note,"Research,Meeting",0.68,log
+60,"Today I thought about Study. I feel Satisfied, hoping for a breakthrough.",2025-01-08T22:13:43.811906,2025-01-09T01:13:43.811906,Meeting,Satisfied,0.4,diary
+61,"Today I thought about Reading. I feel Tired, hoping for a breakthrough.",2025-03-20T08:04:49.378994,,Note,Curious,0.51,diary
+62,"@03/23/2025 discussing Study, feeling Focused.",2025-03-23T19:16:10.045613,,Idea,Focused,0.96,log
+63,"Today I thought about Inspiration. I feel Excited, hoping for a breakthrough.",2025-01-14T17:45:50.806657,,General,"Focused,Thinking",0.49,diary
+64,"Today I thought about Course. I feel Excited, hoping for a breakthrough.",2025-01-29T02:41:02.967608,,Note,"Study,Excited,Satisfied",0.42,diary
+65,"@01/13/2025 at Cafe discussing Research, feeling Excited.",2025-01-13T12:42:03.835638,,Note,"Research,Curious,Tired",0.71,log
+66,"@01/17/2025 with Mentor at Library discussing Project, feeling Curious.",2025-01-17T07:30:50.745145,,Idea,"Study,Research",0.54,log
+67,"Today I thought about Inspiration. I feel Tired, hoping for a breakthrough.",2025-02-17T20:22:26.919516,,Idea,Inspiration,0.32,diary
+68,"Today I thought about Study. I feel Curious, hoping for a breakthrough.",2025-01-07T13:28:33.133024,2025-01-07T16:28:33.133024,Meeting,"Excited,Research",0.57,diary
+69,"Today I thought about Thinking. I feel Satisfied, hoping for a breakthrough.",2025-03-14T08:58:38.329378,,Task,"Confused,Project,Study",0.64,diary
+70,"Thinking back to the discussion about Thinking from a few days ago, I feel we need to explore it deeper.",2025-03-17T08:58:38.329378,,Task,"Inspiration,Research,Thinking",0.86,diary
+71,"@03/20/2025 Continuing research on Thinking, feeling Satisfied. Made new discoveries.",2025-03-20T08:58:38.329378,,Idea,Thinking,0.64,log
+72,"@03/15/2025 at Office discussing Meeting, feeling Satisfied.",2025-03-15T18:01:00.661630,,General,"Project,Tired,Study",0.79,log
+73,"@02/24/2025 with Team member discussing Inspiration, feeling Satisfied.",2025-02-24T22:16:23.057988,2025-02-25T01:16:23.057988,Research,"Tired,Inspiration,Focused",0.37,log
+74,"@03/19/2025 discussing Inspiration, feeling Curious.",2025-03-19T00:46:23.949941,,Research,"Reading,Inspiration",0.89,log
+75,"@02/02/2025 at Dorm discussing Meeting, feeling Focused.",2025-02-02T22:48:52.626404,2025-02-03T01:48:52.626404,Note,Study,0.72,log
+76,"@03/27/2025 at Office discussing Course, feeling Tired.",2025-03-27T16:36:38.008429,,Research,"Curious,Focused,Study",0.97,log
+77,"Today I thought about Inspiration. I feel Curious, hoping for a breakthrough.",2025-01-30T15:43:39.580943,2025-01-30T16:43:39.580943,Meeting,"Confused,Meeting,Project",0.93,diary
+78,"Today I thought about Course. I feel Curious, hoping for a breakthrough.",2025-01-02T02:29:36.791060,,Idea,Reading,0.85,diary
+79,"Today I thought about Inspiration. I feel Satisfied, hoping for a breakthrough.",2025-02-20T14:15:36.590300,,Idea,"Meeting,Project",0.45,diary
+80,"@03/29/2025 with Friend discussing Meeting, feeling Confused.",2025-03-29T10:36:48.455407,,General,Thinking,0.56,log
+81,"Today I thought about Study. I feel Focused, hoping for a breakthrough.",2025-03-28T07:49:28.027358,,Meeting,Excited,0.75,diary
+82,"@02/25/2025 discussing Course, feeling Confused.",2025-02-25T00:59:48.063150,,General,Reading,0.42,log
+83,"@02/18/2025 discussing Research, feeling Confused.",2025-02-18T18:34:15.217463,,Idea,Inspiration,0.51,log
+84,"@02/25/2025 with Classmate at Library discussing Meeting, feeling Excited.",2025-02-25T19:31:57.660224,,General,"Tired,Inspiration",1.0,log
+85,"Today I thought about Reading. I feel Confused, hoping for a breakthrough.",2025-01-02T09:51:52.204906,2025-01-02T10:51:52.204906,Research,"Meeting,Study",0.71,diary
+86,"@01/09/2025 Continuing research on Reading, feeling Confused. Made new discoveries.",2025-01-09T09:51:52.204906,,Meeting,"Course,Study,Reading",0.53,log
+87,"@01/09/2025 Continuing research on Reading, feeling Confused. Made new discoveries.",2025-01-09T09:51:52.204906,,Research,"Thinking,Tired,Project,Reading",0.93,diary
+88,"@01/11/2025 Continuing research on Reading, feeling Confused. Made new discoveries.",2025-01-11T09:51:52.204906,,Task,"Focused,Reading",0.85,log
+89,"@01/17/2025 Continuing research on Reading, feeling Confused. Made new discoveries.",2025-01-17T09:51:52.204906,2025-03-09T16:34:03.301505,Note,"Meeting,Reading",0.61,diary
+90,"@03/02/2025 with Friend discussing Project, feeling Focused.",2025-03-02T06:28:57.915781,2025-03-02T09:28:57.915781,Idea,"Satisfied,Project",0.32,log
+91,"Today I thought about Inspiration. I feel Tired, hoping for a breakthrough.",2025-03-22T13:42:09.976950,2025-03-22T16:42:09.976950,Task,"Reading,Confused",0.84,diary
+92,"@01/22/2025 with Mentor discussing Reading, feeling Tired.",2025-01-22T15:45:16.761220,,Research,"Reading,Focused,Meeting",0.46,log
+93,"Today I thought about Study. I feel Satisfied, hoping for a breakthrough.",2025-01-07T22:57:40.788359,,Meeting,"Satisfied,Thinking",0.69,diary
+94,"@01/13/2025 at Office discussing Meeting, feeling Curious.",2025-01-13T07:59:05.480859,,Task,"Curious,Satisfied,Excited",0.45,log
+95,"Today I thought about Course. I feel Curious, hoping for a breakthrough.",2025-01-28T06:17:59.614001,,Meeting,Focused,0.85,diary
+96,"Today I thought about Reading. I feel Focused, hoping for a breakthrough.",2025-03-15T08:09:43.258610,,Research,Inspiration,0.39,diary
+97,"@02/21/2025 with Team member discussing Inspiration, feeling Tired.",2025-02-21T21:45:14.223615,,Idea,"Curious,Confused,Meeting",0.64,log
+98,"Today I thought about Study. I feel Confused, hoping for a breakthrough.",2025-03-27T04:44:14.929655,,Note,"Satisfied,Tired",0.83,diary
+99,"@03/29/2025 at Dorm discussing Study, feeling Focused.",2025-03-29T02:09:41.721605,,General,"Satisfied,Curious,Reading",0.65,log

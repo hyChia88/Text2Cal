@@ -317,3 +317,59 @@ class MemoryModel:
     def clear_embedding_cache(self) -> None:
         """Clear the embedding cache to free memory."""
         self.embeddings_cache = {}
+    
+    # !! new: 在memory_model.py中添加
+
+    def get_lightweight_attention(self, 
+                                query_embedding: np.ndarray, 
+                                memory_embeddings: Dict[str, np.ndarray],
+                                timestamps: Dict[str, str] = None,
+                                user_weights: Dict[str, float] = None) -> Dict[str, float]:
+        """
+        Calculate lightweight attention weights
+        
+        Args:
+            query_embedding: Query embedding vector
+            memory_embeddings: Mapping of memory IDs to embedding vectors
+            timestamps: Mapping of memory IDs to timestamps
+            user_weights: User-defined weights (memory ID to weight mapping)
+            
+        Returns:
+            Mapping of memory IDs to attention scores
+        """
+        if not memory_embeddings:
+            return {}
+        
+        # Calculate cosine similarity
+        similarity_scores = {}
+        for memory_id, embedding in memory_embeddings.items():
+            similarity = self.compute_similarity(query_embedding, embedding)
+            similarity_scores[memory_id] = max(0, similarity)  # Ensure non-negative
+        
+        # Apply time decay
+        if timestamps:
+            now = datetime.now()
+            for memory_id, timestamp in timestamps.items():
+                if memory_id in similarity_scores:
+                    try:
+                        time_delta = (now - datetime.fromisoformat(timestamp)).days
+                        decay_factor = np.exp(-time_delta / 30)  # 30-day half-life
+                        similarity_scores[memory_id] *= decay_factor
+                    except (ValueError, TypeError):
+                        # Skip decay if timestamp format is invalid
+                        pass
+        
+        # Blend with user weights
+        if user_weights:
+            for memory_id, weight in user_weights.items():
+                if memory_id in similarity_scores:
+                    # 70% similarity, 30% user weight
+                    similarity_scores[memory_id] = 0.7 * similarity_scores[memory_id] + 0.3 * weight
+        
+        # Normalize scores
+        total = sum(similarity_scores.values())
+        if total > 0:
+            for memory_id in similarity_scores:
+                similarity_scores[memory_id] /= total
+        
+        return similarity_scores

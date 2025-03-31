@@ -59,7 +59,7 @@ class Database:
     def __init__(self):
         self.collection = logs_collection
     
-    def add_log(self, content, start_time=None, end_time=None, progress=0):
+    def add_log(self, content, start_time=None, end_time=None, progress=0, tags=None):
         """添加新日志条目"""
         try:
             log_id = str(ObjectId())
@@ -75,7 +75,8 @@ class Database:
                 "end_time": end_time,
                 "created_at": now,
                 "progress": progress,
-                "ai_feedback": None
+                "ai_feedback": None,
+                "tags": tags if tags is not None else [],
             }
             
             self.collection.insert_one(log_document)
@@ -136,7 +137,7 @@ class Database:
         
         return False
     
-    def get_log_by_id(self, log_id):
+    def get_log(self, log_id):
         """根据ID获取单个日志"""
         doc = self.collection.find_one({"id": log_id})
         if doc:

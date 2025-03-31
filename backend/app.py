@@ -16,6 +16,7 @@ from file_processor import FileProcessor
 from utils import (generate_unique_id, clean_text, extract_log_date, 
                   calculate_date_difference, format_log_display, categorize_log, 
                   extract_tags_from_content, filter_logs_by_timeframe)
+from data_generator import DataGenerator
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -87,7 +88,7 @@ def add_log():
     log_id = db.add_log(
         content=log_text,
         start_time=start_time,
-        category=category,
+        # category=category,
         tags=','.join(tags) if tags else None
     )
     
@@ -632,6 +633,93 @@ def get_tags():
     sorted_tags = sorted(list(all_tags))
     
     return jsonify({"tags": sorted_tags})
+
+# 添加生成合成数据的路由
+@app.route("/api/generate-synthetic-data", methods=["POST"])
+def generate_synthetic_data():
+    """Generate synthetic data and load to database"""
+    data = request.get_json()
+    num_samples = data.get("num_samples", 100)
+    use_enhanced = data.get("use_enhanced", True)  # Add this parameter
+    openai_ratio = data.get("openai_ratio", 0.3)   # Add this parameter
+    
+    try:
+        # Pass the enhancement options to the DataGenerator
+        generator = DataGenerator(use_enhanced=use_enhanced)
+        count = generator.generate_and_load_to_db(db, num_samples, openai_ratio)
+        
+        return jsonify({
+            "status": "success", 
+            "message": f"Generated {count} synthetic memory records",
+            "count": count,
+            "enhanced": use_enhanced
+        })
+    except Exception as e:
+        print(f"Error generating synthetic data: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+# 添加获取记忆嵌入的路由
+@app.route("/api/get-embeddings", methods=["POST"])
+def get_embeddings():
+    """获取记忆内容的嵌入向量"""
+    data = request.get_json()
+    texts = data.get("texts", [])
+    
+    if not texts:
+        return jsonify({"status": "error", "message": "No texts provided"}), 400
+    
+    try:
+        # 使用 OpenAI 获取嵌入
+        embeddings = []
+        # 批量处理，每次最多16个文本
+        for i in range(0, len(texts), 16):
+            batch = texts[i:i+16]
+            batch_embeddings = openai_helper.generate_embeddings(batch)
+            embeddings.extend(batch_embeddings)
+        
+        return jsonify({
+            "status": "success",
+            "embeddings": embeddings
+        })
+    except Exception as e:
+        print(f"Error generating embeddings: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+# 添加记忆内容填充生成的路由
+@app.route("/api/generate-memory-completion", methods=["POST"])
+def generate_memory_completion():
+    """Generate memory completion based on weighted memories"""
+    data = request.get_json()
+    memory_ids = data.get("memory_ids", [])
+    weights = data.get("weights", {})
+    
+    if not memory_ids:
+        return jsonify({"status": "error", "message": "No memory IDs provided"}), 400
+    
+    try:
+        # Get memory content
+        memories = []
+        for memory_id in memory_ids:
+            memory = db.get_log(memory_id)
+            if memory:
+                memories.append(memory)
+        
+        if not memories:
+            return jsonify({"status": "error", "message": "No valid memories found"}), 404
+        
+        # Generate completion
+        completion_result = openai_helper.generate_memory_completion(memories, weights)
+        
+        return jsonify({
+            "status": "success",
+            "completion": completion_result.get("completion", ""),
+            "original_contents": completion_result.get("original_contents", []),
+            "original_count": len(memories)
+        })
+    except Exception as e:
+        print(f"Error generating memory completion: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 # Main entry point
 if __name__ == "__main__":

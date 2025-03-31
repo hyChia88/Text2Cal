@@ -1,46 +1,79 @@
-# Text2Cal
-## Demo link:
-https://text2cal.vercel.app/
+# A3: Log your memories
 
 ## Installation
-Running the Frontend (Next.js)
+1. Generate Synthetic Data (Optional)
+To populate your system with test data:
+
+Make sure the backend server is running
+Visit http://localhost:3000
+Click the "+" button in the bottom right corner
+Select the number of synthetic memories to generate
+
+2. Install Dependencies
+Python 3.8 or higher
+Node.js 14.0 or higher
+MongoDB (optional, for persistent storage)
+
+3. Backend Setup
+- Clone the repository:
 ```
-cd /path/to/your/project
-
-# Install dependencies (if you haven't already)
-npm install
-
-# Start the development server
-npm run dev
+git clone https://github.com/yourusername/memory-log.git
+cd memory-log
 ```
-The frontend should start and be accessible at http://localhost:3000
 
-Running the Backend (Flask)
+- Create and activate a virtual environment:
 ```
-cd /path/to/your/project/backend
-
-# Create and activate a virtual environment (optional but recommended)
 python -m venv venv
+
+# On Windows
 venv\Scripts\activate
 
-# Install dependencies (if you haven't already)
-pip install -r requirements.txt  # If you have a requirements file
-# Or install manually:
-pip install flask requests flask-cors openai python-dotenv
+# On macOS/Linux
+source venv/bin/activate
+```
 
-# Start the Flask server
+- Install Python dependencies:
+```
+pip install -r requirements.txt
+```
+
+Set up environment variables by creating a .env file:
+```
+CopyOPENAI_API_KEY=your_openai_api_key
+MONGODB_URI=mongodb://localhost:27017/memory-log
+NOTION_TOKEN=optional_notion_api_token
+NOTION_DATABASE_ID=optional_notion_database_id
+```
+
+Start the backend server, The backend will run on http://localhost:5000:
+```
 python app.py
 ```
-The backend should start and be accessible at http://localhost:5000
+
+4. Frontend Setup
+
+Navigate to the frontend directory:
+```
+cd frontend
+```
+
+Install Node.js dependencies:
+```
+npm install
+```
+Create a .env.local file with the following content:
+```
+NEXT_PUBLIC_API_BASE_URL=http://localhost:5000
+```
+
+Start the development server, The frontend will run on http://localhost:3000:
+```
+npm run dev
+```
 
 ---
-## List to do:
-目前我的问题是，
-1. 各个功能应该写在哪里？
-2. 深度学习模型应该怎么建立？数据应该如何收集？需要怎么的数据？
-
-后端功能列表
-
+**Ignore below**
+Backend file list:
 1. 基础数据管理
    get_logs(days=30, page=1, per_page=20) - 获取指定天数内的日志记录，支持分页
    add_log(content, type=None, timestamp=None) - 添加新日志，增加类型和自定义时间戳参数

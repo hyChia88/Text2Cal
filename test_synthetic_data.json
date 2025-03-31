@@ -1,0 +1,1002 @@
+[
+  {
+    "id":"0",
+    "content":"Today I thought about Course. I feel Focused, hoping for a breakthrough.",
+    "start_time":"2025-02-21T18:00:41.121369",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Meeting,Thinking",
+    "importance":0.79,
+    "type":"diary"
+  },
+  {
+    "id":"1",
+    "content":"Today I thought about Thinking. I feel Tired, hoping for a breakthrough.",
+    "start_time":"2025-02-05T09:53:49.055012",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Course,Excited",
+    "importance":0.44,
+    "type":"diary"
+  },
+  {
+    "id":"2",
+    "content":"Today I thought about Course. I feel Focused, hoping for a breakthrough.",
+    "start_time":"2025-01-18T16:33:21.452024",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Excited,Focused",
+    "importance":0.55,
+    "type":"diary"
+  },
+  {
+    "id":"3",
+    "content":"Today I thought about Inspiration. I feel Curious, hoping for a breakthrough.",
+    "start_time":"2025-01-16T21:40:47.074765",
+    "end_time":"2025-01-16T23:40:47.074765",
+    "category":"General",
+    "tags":"Project,Reading,Satisfied",
+    "importance":0.49,
+    "type":"diary"
+  },
+  {
+    "id":"4",
+    "content":"Today I thought about Thinking. I feel Focused, hoping for a breakthrough.",
+    "start_time":"2025-03-29T18:36:18.977474",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Tired,Reading,Excited",
+    "importance":0.61,
+    "type":"diary"
+  },
+  {
+    "id":"5",
+    "content":"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-01-10T16:05:03.959263",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Thinking,Reading",
+    "importance":0.6,
+    "type":"diary"
+  },
+  {
+    "id":"6",
+    "content":"@01\/03\/2025 discussing Reading, feeling Confused.",
+    "start_time":"2025-01-03T09:49:54.967357",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Satisfied,Focused,Research",
+    "importance":0.85,
+    "type":"log"
+  },
+  {
+    "id":"7",
+    "content":"@01\/18\/2025 discussing Meeting, feeling Confused.",
+    "start_time":"2025-01-18T04:41:40.365398",
+    "end_time":"2025-01-18T07:41:40.365398",
+    "category":"Meeting",
+    "tags":"Research,Project",
+    "importance":0.38,
+    "type":"log"
+  },
+  {
+    "id":"8",
+    "content":"@02\/27\/2025 with Mentor discussing Research, feeling Excited.",
+    "start_time":"2025-02-27T18:07:18.565875",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Inspiration,Thinking,Tired",
+    "importance":0.85,
+    "type":"log"
+  },
+  {
+    "id":"9",
+    "content":"@03\/30\/2025 with Classmate discussing Inspiration, feeling Tired.",
+    "start_time":"2025-03-30T03:24:16.708088",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Thinking,Reading",
+    "importance":0.76,
+    "type":"log"
+  },
+  {
+    "id":"10",
+    "content":"Today I thought about Meeting. I feel Focused, hoping for a breakthrough.",
+    "start_time":"2024-12-31T00:07:50.303636",
+    "end_time":null,
+    "category":"General",
+    "tags":"Project",
+    "importance":0.96,
+    "type":"diary"
+  },
+  {
+    "id":"11",
+    "content":"@02\/15\/2025 at Office discussing Inspiration, feeling Excited.",
+    "start_time":"2025-02-15T10:10:26.006299",
+    "end_time":"2025-02-15T11:10:26.006299",
+    "category":"Note",
+    "tags":"Focused",
+    "importance":0.73,
+    "type":"log"
+  },
+  {
+    "id":"12",
+    "content":"@03\/22\/2025 with Classmate discussing Project, feeling Satisfied.",
+    "start_time":"2025-03-22T20:12:10.960305",
+    "end_time":"2025-03-22T23:12:10.960305",
+    "category":"General",
+    "tags":"Meeting,Research",
+    "importance":0.83,
+    "type":"log"
+  },
+  {
+    "id":"13",
+    "content":"@01\/19\/2025 at Office discussing Thinking, feeling Confused.",
+    "start_time":"2025-01-19T22:09:05.386869",
+    "end_time":"2025-01-20T00:09:05.386869",
+    "category":"Research",
+    "tags":"Project",
+    "importance":0.74,
+    "type":"log"
+  },
+  {
+    "id":"14",
+    "content":"@03\/11\/2025 with Team member discussing Course, feeling Confused.",
+    "start_time":"2025-03-11T17:47:27.623537",
+    "end_time":null,
+    "category":"General",
+    "tags":"Curious,Satisfied",
+    "importance":0.39,
+    "type":"log"
+  },
+  {
+    "id":"15",
+    "content":"@03\/22\/2025 with Professor discussing Project, feeling Satisfied.",
+    "start_time":"2025-03-22T13:01:18.896282",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Research",
+    "importance":0.98,
+    "type":"log"
+  },
+  {
+    "id":"16",
+    "content":"@01\/17\/2025 with Mentor at Office discussing Project, feeling Confused.",
+    "start_time":"2025-01-17T21:48:04.311221",
+    "end_time":null,
+    "category":"Task",
+    "tags":"Inspiration,Excited,Research",
+    "importance":0.93,
+    "type":"log"
+  },
+  {
+    "id":"17",
+    "content":"Today I thought about Project. I feel Confused, hoping for a breakthrough.",
+    "start_time":"2025-03-08T05:52:51.770658",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Course,Excited",
+    "importance":0.82,
+    "type":"diary"
+  },
+  {
+    "id":"18",
+    "content":"Today I thought about Course. I feel Curious, hoping for a breakthrough.",
+    "start_time":"2025-03-05T23:28:44.109868",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Meeting,Confused",
+    "importance":0.37,
+    "type":"diary"
+  },
+  {
+    "id":"19",
+    "content":"Today I thought about Study. I feel Focused, hoping for a breakthrough.",
+    "start_time":"2025-01-16T08:08:56.309770",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Tired,Confused",
+    "importance":0.85,
+    "type":"diary"
+  },
+  {
+    "id":"20",
+    "content":"Thinking back to the discussion about Study from a few days ago, I feel we need to explore it deeper.",
+    "start_time":"2025-01-20T08:08:56.309770",
+    "end_time":"2025-01-17T04:59:09.885918",
+    "category":"Note",
+    "tags":"Satisfied,Meeting,Focused,Study",
+    "importance":0.48,
+    "type":"log"
+  },
+  {
+    "id":"21",
+    "content":"Today I thought about Project. I feel Excited, hoping for a breakthrough.",
+    "start_time":"2025-01-19T02:05:32.813491",
+    "end_time":null,
+    "category":"General",
+    "tags":"Course",
+    "importance":0.57,
+    "type":"diary"
+  },
+  {
+    "id":"22",
+    "content":"@01\/07\/2025 with Mentor at Cafe discussing Meeting, feeling Confused.",
+    "start_time":"2025-01-07T18:08:48.483699",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Focused,Study",
+    "importance":0.58,
+    "type":"log"
+  },
+  {
+    "id":"23",
+    "content":"@01\/14\/2025 Continuing research on Meeting, feeling Confused. Made new discoveries.",
+    "start_time":"2025-01-14T18:08:48.483699",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Satisfied,Tired,Research,Meeting",
+    "importance":0.43,
+    "type":"diary"
+  },
+  {
+    "id":"24",
+    "content":"@03\/16\/2025 with Professor at Lab discussing Meeting, feeling Excited.",
+    "start_time":"2025-03-16T09:07:52.773802",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Thinking,Focused",
+    "importance":0.67,
+    "type":"log"
+  },
+  {
+    "id":"25",
+    "content":"@03\/12\/2025 with Friend discussing Meeting, feeling Excited.",
+    "start_time":"2025-03-12T05:27:48.609564",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Research",
+    "importance":0.36,
+    "type":"log"
+  },
+  {
+    "id":"26",
+    "content":"Today I thought about Study. I feel Focused, hoping for a breakthrough.",
+    "start_time":"2025-03-10T10:32:48.317257",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Meeting",
+    "importance":0.45,
+    "type":"diary"
+  },
+  {
+    "id":"27",
+    "content":"Today I thought about Course. I feel Confused, hoping for a breakthrough.",
+    "start_time":"2025-03-12T05:04:15.109477",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Curious,Satisfied,Excited",
+    "importance":0.48,
+    "type":"diary"
+  },
+  {
+    "id":"28",
+    "content":"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-01-12T01:40:53.301436",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Thinking,Focused",
+    "importance":0.71,
+    "type":"diary"
+  },
+  {
+    "id":"29",
+    "content":"Today I thought about Study. I feel Tired, hoping for a breakthrough.",
+    "start_time":"2025-03-14T11:14:15.770205",
+    "end_time":"2025-03-14T13:14:15.770205",
+    "category":"Meeting",
+    "tags":"Course",
+    "importance":0.45,
+    "type":"diary"
+  },
+  {
+    "id":"30",
+    "content":"@01\/19\/2025 at Office discussing Study, feeling Tired.",
+    "start_time":"2025-01-19T02:00:30.110757",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Project,Research,Inspiration",
+    "importance":0.33,
+    "type":"log"
+  },
+  {
+    "id":"31",
+    "content":"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-01-13T22:06:29.994042",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Confused,Inspiration",
+    "importance":0.79,
+    "type":"diary"
+  },
+  {
+    "id":"32",
+    "content":"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-02-10T03:36:40.194621",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Inspiration",
+    "importance":0.97,
+    "type":"diary"
+  },
+  {
+    "id":"33",
+    "content":"@02\/13\/2025 Continuing research on Reading, feeling Satisfied. Made new discoveries.",
+    "start_time":"2025-02-13T03:36:40.194621",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Course,Reading",
+    "importance":0.68,
+    "type":"log"
+  },
+  {
+    "id":"34",
+    "content":"Thinking back to the discussion about Reading from a few days ago, I feel we need to explore it deeper.",
+    "start_time":"2025-02-12T03:36:40.194621",
+    "end_time":null,
+    "category":"General",
+    "tags":"Excited,Reading",
+    "importance":0.73,
+    "type":"log"
+  },
+  {
+    "id":"35",
+    "content":"Thinking back to the discussion about Course from a few days ago, I feel we need to explore it deeper.",
+    "start_time":"2025-03-17T12:27:33.991961",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Thinking,Curious,Course",
+    "importance":0.69,
+    "type":"log"
+  },
+  {
+    "id":"36",
+    "content":"@02\/14\/2025 with Mentor discussing Reading, feeling Satisfied.",
+    "start_time":"2025-02-14T15:27:49.199473",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Inspiration,Excited,Project",
+    "importance":0.81,
+    "type":"log"
+  },
+  {
+    "id":"37",
+    "content":"Thinking back to the discussion about Reading from a few days ago, I feel we need to explore it deeper.",
+    "start_time":"2025-02-16T15:27:49.199473",
+    "end_time":"2025-03-20T15:38:24.454262",
+    "category":"Idea",
+    "tags":"Inspiration,Reading",
+    "importance":0.84,
+    "type":"log"
+  },
+  {
+    "id":"38",
+    "content":"Today I thought about Thinking. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-02-22T20:10:11.825685",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Project",
+    "importance":0.81,
+    "type":"diary"
+  },
+  {
+    "id":"39",
+    "content":"Today I thought about Reading. I feel Confused, hoping for a breakthrough.",
+    "start_time":"2025-01-11T18:58:12.285227",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Satisfied,Tired",
+    "importance":1.0,
+    "type":"diary"
+  },
+  {
+    "id":"40",
+    "content":"@01\/26\/2025 with Classmate discussing Course, feeling Excited.",
+    "start_time":"2025-01-26T05:04:21.061111",
+    "end_time":"2025-01-26T07:04:21.061111",
+    "category":"Research",
+    "tags":"Excited",
+    "importance":0.63,
+    "type":"log"
+  },
+  {
+    "id":"41",
+    "content":"Today I thought about Study. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-01-30T17:26:04.180644",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Satisfied",
+    "importance":0.99,
+    "type":"diary"
+  },
+  {
+    "id":"42",
+    "content":"@03\/23\/2025 with Team member discussing Thinking, feeling Tired.",
+    "start_time":"2025-03-23T08:50:58.577696",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Study",
+    "importance":0.66,
+    "type":"log"
+  },
+  {
+    "id":"43",
+    "content":"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-03-12T14:15:24.383987",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Meeting,Excited,Research",
+    "importance":0.92,
+    "type":"diary"
+  },
+  {
+    "id":"44",
+    "content":"@02\/05\/2025 with Classmate at Cafe discussing Reading, feeling Excited.",
+    "start_time":"2025-02-05T00:08:53.168650",
+    "end_time":null,
+    "category":"General",
+    "tags":"Curious,Satisfied",
+    "importance":0.65,
+    "type":"log"
+  },
+  {
+    "id":"45",
+    "content":"@01\/15\/2025 discussing Meeting, feeling Satisfied.",
+    "start_time":"2025-01-15T18:52:38.535864",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Course",
+    "importance":0.96,
+    "type":"log"
+  },
+  {
+    "id":"46",
+    "content":"Today I thought about Thinking. I feel Focused, hoping for a breakthrough.",
+    "start_time":"2025-03-12T01:51:44.464199",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Confused,Course",
+    "importance":0.67,
+    "type":"diary"
+  },
+  {
+    "id":"47",
+    "content":"Today I thought about Reading. I feel Curious, hoping for a breakthrough.",
+    "start_time":"2025-01-20T14:42:05.539066",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Inspiration,Course,Reading",
+    "importance":0.63,
+    "type":"diary"
+  },
+  {
+    "id":"48",
+    "content":"@02\/01\/2025 with Mentor at Office discussing Project, feeling Focused.",
+    "start_time":"2025-02-01T02:39:02.306756",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Thinking",
+    "importance":0.94,
+    "type":"log"
+  },
+  {
+    "id":"49",
+    "content":"@03\/09\/2025 discussing Course, feeling Tired.",
+    "start_time":"2025-03-09T07:31:39.899487",
+    "end_time":null,
+    "category":"General",
+    "tags":"Study,Satisfied",
+    "importance":0.51,
+    "type":"log"
+  },
+  {
+    "id":"50",
+    "content":"@03\/17\/2025 at Office discussing Project, feeling Confused.",
+    "start_time":"2025-03-17T16:57:48.237809",
+    "end_time":"2025-03-17T18:57:48.237809",
+    "category":"General",
+    "tags":"Focused,Project,Course",
+    "importance":0.74,
+    "type":"log"
+  },
+  {
+    "id":"51",
+    "content":"Today I thought about Reading. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-01-30T07:17:25.494942",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Meeting",
+    "importance":0.79,
+    "type":"diary"
+  },
+  {
+    "id":"52",
+    "content":"Today I thought about Course. I feel Excited, hoping for a breakthrough.",
+    "start_time":"2025-03-11T15:19:28.157455",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Inspiration,Project",
+    "importance":0.62,
+    "type":"diary"
+  },
+  {
+    "id":"53",
+    "content":"@01\/22\/2025 with Friend at Classroom discussing Course, feeling Excited.",
+    "start_time":"2025-01-22T17:24:47.681034",
+    "end_time":null,
+    "category":"General",
+    "tags":"Curious",
+    "importance":0.79,
+    "type":"log"
+  },
+  {
+    "id":"54",
+    "content":"@01\/25\/2025 with Classmate discussing Research, feeling Excited.",
+    "start_time":"2025-01-25T06:27:58.462844",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Thinking,Course,Satisfied",
+    "importance":0.41,
+    "type":"log"
+  },
+  {
+    "id":"55",
+    "content":"@02\/01\/2025 Continuing research on Research, feeling Excited. Made new discoveries.",
+    "start_time":"2025-02-01T06:27:58.462844",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Course,Meeting,Research",
+    "importance":0.98,
+    "type":"diary"
+  },
+  {
+    "id":"56",
+    "content":"Today I thought about Inspiration. I feel Excited, hoping for a breakthrough.",
+    "start_time":"2025-01-12T00:18:10.472984",
+    "end_time":"2025-01-12T02:18:10.472984",
+    "category":"Note",
+    "tags":"Project",
+    "importance":0.79,
+    "type":"diary"
+  },
+  {
+    "id":"57",
+    "content":"Today I thought about Thinking. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-01-30T02:50:45.508204",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Meeting",
+    "importance":0.6,
+    "type":"diary"
+  },
+  {
+    "id":"58",
+    "content":"Today I thought about Thinking. I feel Tired, hoping for a breakthrough.",
+    "start_time":"2025-03-16T16:47:08.649404",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Focused",
+    "importance":0.45,
+    "type":"diary"
+  },
+  {
+    "id":"59",
+    "content":"@02\/13\/2025 discussing Meeting, feeling Tired.",
+    "start_time":"2025-02-13T10:02:37.218239",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Research,Meeting",
+    "importance":0.68,
+    "type":"log"
+  },
+  {
+    "id":"60",
+    "content":"Today I thought about Study. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-01-08T22:13:43.811906",
+    "end_time":"2025-01-09T01:13:43.811906",
+    "category":"Meeting",
+    "tags":"Satisfied",
+    "importance":0.4,
+    "type":"diary"
+  },
+  {
+    "id":"61",
+    "content":"Today I thought about Reading. I feel Tired, hoping for a breakthrough.",
+    "start_time":"2025-03-20T08:04:49.378994",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Curious",
+    "importance":0.51,
+    "type":"diary"
+  },
+  {
+    "id":"62",
+    "content":"@03\/23\/2025 discussing Study, feeling Focused.",
+    "start_time":"2025-03-23T19:16:10.045613",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Focused",
+    "importance":0.96,
+    "type":"log"
+  },
+  {
+    "id":"63",
+    "content":"Today I thought about Inspiration. I feel Excited, hoping for a breakthrough.",
+    "start_time":"2025-01-14T17:45:50.806657",
+    "end_time":null,
+    "category":"General",
+    "tags":"Focused,Thinking",
+    "importance":0.49,
+    "type":"diary"
+  },
+  {
+    "id":"64",
+    "content":"Today I thought about Course. I feel Excited, hoping for a breakthrough.",
+    "start_time":"2025-01-29T02:41:02.967608",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Study,Excited,Satisfied",
+    "importance":0.42,
+    "type":"diary"
+  },
+  {
+    "id":"65",
+    "content":"@01\/13\/2025 at Cafe discussing Research, feeling Excited.",
+    "start_time":"2025-01-13T12:42:03.835638",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Research,Curious,Tired",
+    "importance":0.71,
+    "type":"log"
+  },
+  {
+    "id":"66",
+    "content":"@01\/17\/2025 with Mentor at Library discussing Project, feeling Curious.",
+    "start_time":"2025-01-17T07:30:50.745145",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Study,Research",
+    "importance":0.54,
+    "type":"log"
+  },
+  {
+    "id":"67",
+    "content":"Today I thought about Inspiration. I feel Tired, hoping for a breakthrough.",
+    "start_time":"2025-02-17T20:22:26.919516",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Inspiration",
+    "importance":0.32,
+    "type":"diary"
+  },
+  {
+    "id":"68",
+    "content":"Today I thought about Study. I feel Curious, hoping for a breakthrough.",
+    "start_time":"2025-01-07T13:28:33.133024",
+    "end_time":"2025-01-07T16:28:33.133024",
+    "category":"Meeting",
+    "tags":"Excited,Research",
+    "importance":0.57,
+    "type":"diary"
+  },
+  {
+    "id":"69",
+    "content":"Today I thought about Thinking. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-03-14T08:58:38.329378",
+    "end_time":null,
+    "category":"Task",
+    "tags":"Confused,Project,Study",
+    "importance":0.64,
+    "type":"diary"
+  },
+  {
+    "id":"70",
+    "content":"Thinking back to the discussion about Thinking from a few days ago, I feel we need to explore it deeper.",
+    "start_time":"2025-03-17T08:58:38.329378",
+    "end_time":null,
+    "category":"Task",
+    "tags":"Inspiration,Research,Thinking",
+    "importance":0.86,
+    "type":"diary"
+  },
+  {
+    "id":"71",
+    "content":"@03\/20\/2025 Continuing research on Thinking, feeling Satisfied. Made new discoveries.",
+    "start_time":"2025-03-20T08:58:38.329378",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Thinking",
+    "importance":0.64,
+    "type":"log"
+  },
+  {
+    "id":"72",
+    "content":"@03\/15\/2025 at Office discussing Meeting, feeling Satisfied.",
+    "start_time":"2025-03-15T18:01:00.661630",
+    "end_time":null,
+    "category":"General",
+    "tags":"Project,Tired,Study",
+    "importance":0.79,
+    "type":"log"
+  },
+  {
+    "id":"73",
+    "content":"@02\/24\/2025 with Team member discussing Inspiration, feeling Satisfied.",
+    "start_time":"2025-02-24T22:16:23.057988",
+    "end_time":"2025-02-25T01:16:23.057988",
+    "category":"Research",
+    "tags":"Tired,Inspiration,Focused",
+    "importance":0.37,
+    "type":"log"
+  },
+  {
+    "id":"74",
+    "content":"@03\/19\/2025 discussing Inspiration, feeling Curious.",
+    "start_time":"2025-03-19T00:46:23.949941",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Reading,Inspiration",
+    "importance":0.89,
+    "type":"log"
+  },
+  {
+    "id":"75",
+    "content":"@02\/02\/2025 at Dorm discussing Meeting, feeling Focused.",
+    "start_time":"2025-02-02T22:48:52.626404",
+    "end_time":"2025-02-03T01:48:52.626404",
+    "category":"Note",
+    "tags":"Study",
+    "importance":0.72,
+    "type":"log"
+  },
+  {
+    "id":"76",
+    "content":"@03\/27\/2025 at Office discussing Course, feeling Tired.",
+    "start_time":"2025-03-27T16:36:38.008429",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Curious,Focused,Study",
+    "importance":0.97,
+    "type":"log"
+  },
+  {
+    "id":"77",
+    "content":"Today I thought about Inspiration. I feel Curious, hoping for a breakthrough.",
+    "start_time":"2025-01-30T15:43:39.580943",
+    "end_time":"2025-01-30T16:43:39.580943",
+    "category":"Meeting",
+    "tags":"Confused,Meeting,Project",
+    "importance":0.93,
+    "type":"diary"
+  },
+  {
+    "id":"78",
+    "content":"Today I thought about Course. I feel Curious, hoping for a breakthrough.",
+    "start_time":"2025-01-02T02:29:36.791060",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Reading",
+    "importance":0.85,
+    "type":"diary"
+  },
+  {
+    "id":"79",
+    "content":"Today I thought about Inspiration. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-02-20T14:15:36.590300",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Meeting,Project",
+    "importance":0.45,
+    "type":"diary"
+  },
+  {
+    "id":"80",
+    "content":"@03\/29\/2025 with Friend discussing Meeting, feeling Confused.",
+    "start_time":"2025-03-29T10:36:48.455407",
+    "end_time":null,
+    "category":"General",
+    "tags":"Thinking",
+    "importance":0.56,
+    "type":"log"
+  },
+  {
+    "id":"81",
+    "content":"Today I thought about Study. I feel Focused, hoping for a breakthrough.",
+    "start_time":"2025-03-28T07:49:28.027358",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Excited",
+    "importance":0.75,
+    "type":"diary"
+  },
+  {
+    "id":"82",
+    "content":"@02\/25\/2025 discussing Course, feeling Confused.",
+    "start_time":"2025-02-25T00:59:48.063150",
+    "end_time":null,
+    "category":"General",
+    "tags":"Reading",
+    "importance":0.42,
+    "type":"log"
+  },
+  {
+    "id":"83",
+    "content":"@02\/18\/2025 discussing Research, feeling Confused.",
+    "start_time":"2025-02-18T18:34:15.217463",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Inspiration",
+    "importance":0.51,
+    "type":"log"
+  },
+  {
+    "id":"84",
+    "content":"@02\/25\/2025 with Classmate at Library discussing Meeting, feeling Excited.",
+    "start_time":"2025-02-25T19:31:57.660224",
+    "end_time":null,
+    "category":"General",
+    "tags":"Tired,Inspiration",
+    "importance":1.0,
+    "type":"log"
+  },
+  {
+    "id":"85",
+    "content":"Today I thought about Reading. I feel Confused, hoping for a breakthrough.",
+    "start_time":"2025-01-02T09:51:52.204906",
+    "end_time":"2025-01-02T10:51:52.204906",
+    "category":"Research",
+    "tags":"Meeting,Study",
+    "importance":0.71,
+    "type":"diary"
+  },
+  {
+    "id":"86",
+    "content":"@01\/09\/2025 Continuing research on Reading, feeling Confused. Made new discoveries.",
+    "start_time":"2025-01-09T09:51:52.204906",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Course,Study,Reading",
+    "importance":0.53,
+    "type":"log"
+  },
+  {
+    "id":"87",
+    "content":"@01\/09\/2025 Continuing research on Reading, feeling Confused. Made new discoveries.",
+    "start_time":"2025-01-09T09:51:52.204906",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Thinking,Tired,Project,Reading",
+    "importance":0.93,
+    "type":"diary"
+  },
+  {
+    "id":"88",
+    "content":"@01\/11\/2025 Continuing research on Reading, feeling Confused. Made new discoveries.",
+    "start_time":"2025-01-11T09:51:52.204906",
+    "end_time":null,
+    "category":"Task",
+    "tags":"Focused,Reading",
+    "importance":0.85,
+    "type":"log"
+  },
+  {
+    "id":"89",
+    "content":"@01\/17\/2025 Continuing research on Reading, feeling Confused. Made new discoveries.",
+    "start_time":"2025-01-17T09:51:52.204906",
+    "end_time":"2025-03-09T16:34:03.301505",
+    "category":"Note",
+    "tags":"Meeting,Reading",
+    "importance":0.61,
+    "type":"diary"
+  },
+  {
+    "id":"90",
+    "content":"@03\/02\/2025 with Friend discussing Project, feeling Focused.",
+    "start_time":"2025-03-02T06:28:57.915781",
+    "end_time":"2025-03-02T09:28:57.915781",
+    "category":"Idea",
+    "tags":"Satisfied,Project",
+    "importance":0.32,
+    "type":"log"
+  },
+  {
+    "id":"91",
+    "content":"Today I thought about Inspiration. I feel Tired, hoping for a breakthrough.",
+    "start_time":"2025-03-22T13:42:09.976950",
+    "end_time":"2025-03-22T16:42:09.976950",
+    "category":"Task",
+    "tags":"Reading,Confused",
+    "importance":0.84,
+    "type":"diary"
+  },
+  {
+    "id":"92",
+    "content":"@01\/22\/2025 with Mentor discussing Reading, feeling Tired.",
+    "start_time":"2025-01-22T15:45:16.761220",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Reading,Focused,Meeting",
+    "importance":0.46,
+    "type":"log"
+  },
+  {
+    "id":"93",
+    "content":"Today I thought about Study. I feel Satisfied, hoping for a breakthrough.",
+    "start_time":"2025-01-07T22:57:40.788359",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Satisfied,Thinking",
+    "importance":0.69,
+    "type":"diary"
+  },
+  {
+    "id":"94",
+    "content":"@01\/13\/2025 at Office discussing Meeting, feeling Curious.",
+    "start_time":"2025-01-13T07:59:05.480859",
+    "end_time":null,
+    "category":"Task",
+    "tags":"Curious,Satisfied,Excited",
+    "importance":0.45,
+    "type":"log"
+  },
+  {
+    "id":"95",
+    "content":"Today I thought about Course. I feel Curious, hoping for a breakthrough.",
+    "start_time":"2025-01-28T06:17:59.614001",
+    "end_time":null,
+    "category":"Meeting",
+    "tags":"Focused",
+    "importance":0.85,
+    "type":"diary"
+  },
+  {
+    "id":"96",
+    "content":"Today I thought about Reading. I feel Focused, hoping for a breakthrough.",
+    "start_time":"2025-03-15T08:09:43.258610",
+    "end_time":null,
+    "category":"Research",
+    "tags":"Inspiration",
+    "importance":0.39,
+    "type":"diary"
+  },
+  {
+    "id":"97",
+    "content":"@02\/21\/2025 with Team member discussing Inspiration, feeling Tired.",
+    "start_time":"2025-02-21T21:45:14.223615",
+    "end_time":null,
+    "category":"Idea",
+    "tags":"Curious,Confused,Meeting",
+    "importance":0.64,
+    "type":"log"
+  },
+  {
+    "id":"98",
+    "content":"Today I thought about Study. I feel Confused, hoping for a breakthrough.",
+    "start_time":"2025-03-27T04:44:14.929655",
+    "end_time":null,
+    "category":"Note",
+    "tags":"Satisfied,Tired",
+    "importance":0.83,
+    "type":"diary"
+  },
+  {
+    "id":"99",
+    "content":"@03\/29\/2025 at Dorm discussing Study, feeling Focused.",
+    "start_time":"2025-03-29T02:09:41.721605",
+    "end_time":null,
+    "category":"General",
+    "tags":"Satisfied,Curious,Reading",
+    "importance":0.65,
+    "type":"log"
+  }
+]

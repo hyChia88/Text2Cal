@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
-import debounce from 'lodash/debounce';
 import { apiService } from '../services/api';
+import memoryAttention from '../services/memoryAttention';
 import axios from "axios";
+import { Log } from '../types';
 
 // Define your API base URL here
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
@@ -30,7 +31,24 @@ const FileUploadZone = ({ onUpload }: { onUpload: (file: File) => void }) => {
   };
   
   return (
-    <label className="drop-zone" onClick={handleClick}>
+    <div 
+      className="drop-zone flex items-center justify-center cursor-pointer"
+      onClick={handleClick}
+    >
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        className="mr-2 h-4 w-4" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M8 12l4 4 4-4" />
+      </svg>
+      <span>Upload</span>
       <input 
         type="file" 
         id="fileUpload" 
@@ -39,30 +57,47 @@ const FileUploadZone = ({ onUpload }: { onUpload: (file: File) => void }) => {
         accept="image/*,application/pdf,.docx,.doc,.txt"
         style={{ display: 'none' }}
       />
-      Upload
-    </label>
+    </div>
   );
 };
 
 export default function Home() {
-  const [log, setLog] = useState("");
-  const [logs, setLogs] = useState<Array<{id: string, content: string, timestamp?: string, type?: string}>>([]);
+  // Text input states
+  const [logText, setLogText] = useState("");
+  const [fullMemory, setFullMemory] = useState("");
+  
+  // Main data states
+  const [logs, setLogs] = useState<Log[]>([]);
   const [suggestion, setSuggestion] = useState("");
+  const [userAvatar, setUserAvatar] = useState('/api/placeholder/50/50');
+  
+  // UI states
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   
+  // Synthetic data generation states
+  const [isSynthDataModalOpen, setIsSynthDataModalOpen] = useState(false);
+  const [synthDataCount, setSynthDataCount] = useState(100);
+  
   // Memory visualization states
   const [attentionWeights, setAttentionWeights] = useState<{[key: string]: number}>({});
-  const [showAttentionMap, setShowAttentionMap] = useState(false);
+  const [showAttentionMap, setShowAttentionMap] = useState(true);
   const [selectedMemory, setSelectedMemory] = useState<string | null>(null);
   
   // File analysis states
   const [selectedFileLogId, setSelectedFileLogId] = useState<string | null>(null);
   const [showAnalysisModal, setShowAnalysisModal] = useState(false);
   const [analysisResults, setAnalysisResults] = useState<any>(null);
-
+  
+  // Memory generation states
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [originalMemories, setOriginalMemories] = useState<Log[]>([]);
+  
+  // References
+  const logAreaRef = useRef<HTMLDivElement>(null);
+  
   // Check if device is mobile
   useEffect(() => {
     const checkMobile = () => {
@@ -87,16 +122,18 @@ export default function Home() {
   const fetchLogs = async () => {
     try {
       setIsLoading(true);
-      // const logs = await apiService.getLogs();
       const logs = await apiService.fetchLogs();
       setLogs(logs);
       
+      // Update full memory text when logs change
+      updateFullMemoryText(logs);
+      
       // Generate attention weights based on recency
-      const mockWeights: {[key: string]: number} = {};
+      const weights: {[key: string]: number} = {};
       logs.forEach((log, index) => {
-        mockWeights[log.id] = Math.max(0.1, 1 - (index * 0.15));
+        weights[log.id] = Math.max(0.1, 1 - (index * 0.15));
       });
-      setAttentionWeights(mockWeights);
+      setAttentionWeights(weights);
       
     } catch (err) {
       setError("Failed to fetch logs. Please try again later.");
@@ -104,10 +141,16 @@ export default function Home() {
       setIsLoading(false);
     }
   };
+  
+  // Update the full memory text from logs
+  const updateFullMemoryText = (logs: Log[]) => {
+    const memoryText = logs.map(log => log.content).join('\n\n');
+    setFullMemory(memoryText);
+  };
 
   // Add new log
-  const addLog = async () => {
-    if (!log.trim()) {
+  const handleLogSubmit = async () => {
+    if (!logText.trim()) {
       setError("Please enter a log entry");
       return;
     }
@@ -116,16 +159,24 @@ export default function Home() {
       setIsLoading(true);
       setError("");
       
-      await apiService.addLog(log);
+      await apiService.addLog(logText);
       await fetchLogs();
       
       setSuccessMessage("Memory logged successfully.");
-      setLog("");
+      setLogText("");
       
-      // Show attention map after adding new log
-      setShowAttentionMap(true);
+      // Update full memory text
+      setFullMemory(prev => {
+        // If starts with @, add double newline
+        if (logText.startsWith('@')) {
+          return prev + '\n\n' + logText;
+        } else {
+          // Otherwise just add single space
+          return prev + ' ' + logText;
+        }
+      });
       
-      // Generate suggestion automatically
+      // Get AI suggestion automatically
       await getSuggestion();
       
     } catch (err) {
@@ -162,15 +213,104 @@ export default function Home() {
       setIsLoading(false);
     }
   };
-
-  // Handle log button click
-  const handleLog = () => {
-    addLog();
+  
+  // Update in page.tsx, the generateCompletion function
+  const generateCompletion = async () => {
+    if (logs.length === 0) {
+      setError("No memories available to generate completion");
+      return;
+    }
+    
+    try {
+      setIsGenerating(true);
+      setError("");
+      
+      // Save original memories
+      setOriginalMemories(logs);
+      
+      // Get weighted memories
+      const weightedMemories = {};
+      for (const log of logs) {
+        (weightedMemories as Record<string, number>)[log.id] = attentionWeights[log.id] || 0.5;
+      }
+      
+      // Generate completion
+      const result = await apiService.generateMemoryCompletion(
+        logs.map(log => log.id),
+        weightedMemories
+      );
+      
+      // Store both the full completion and the original content markers
+      setFullMemory(result.completion);
+      setOriginalContents(result.originalContents);
+      
+      setSuggestion("Your memory has been enriched with contextual insights based on your attention patterns.");
+    } catch (error) {
+      console.error("Error generating memory completion:", error);
+      setError("Failed to generate memory completion. Please try again.");
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
-  // Handle generate button click
-  const handleGenerate = () => {
-    getSuggestion();
+  // Add a new state to track original contents
+  const [originalContents, setOriginalContents] = useState<string[]>([]);
+
+  // Update the formatMemoryText function to highlight properly
+  const formatMemoryText = () => {
+    if (!fullMemory) return [];
+    
+    // Split the text into paragraphs
+    const paragraphs = fullMemory.split('\n\n');
+    
+    return paragraphs.map((paragraph, index) => {
+      // Check if this paragraph is one of the original contents
+      const isOriginal = originalContents.some(original => 
+        paragraph.trim() === original.trim()
+      );
+      
+      return (
+        <div 
+          key={index} 
+          className={isOriginal ? "font-semibold text-black" : "text-gray-700"}
+        >
+          {paragraph}
+        </div>
+      );
+    });
+  };
+  
+  const [useEnhanced, setUseEnhanced] = useState(true);
+  const [openaiRatio, setOpenaiRatio] = useState(0.3);
+
+  // Generate synthetic data
+  // Update your function that calls the API
+  const generateSyntheticData = async () => {
+    if (synthDataCount < 10 || synthDataCount > 1000) {
+        setError("Please enter a number between 10 and 1000");
+        return;
+    }
+    
+    try {
+        setIsLoading(true);
+        setError("");
+        
+        const result = await apiService.generateSyntheticData({
+            count: synthDataCount,
+            enhanced: useEnhanced,
+            openaiRatio: openaiRatio
+        });
+        setSuccessMessage(`Successfully generated ${result.count} synthetic memory records`);
+        setIsSynthDataModalOpen(false);
+        
+        // Refresh logs
+        await fetchLogs();
+    } catch (error) {
+        console.error("Error generating synthetic data:", error);
+        setError("Failed to generate synthetic data. Please try again.");
+    } finally {
+        setIsLoading(false);
+    }
   };
 
   // Handle file upload
@@ -237,14 +377,14 @@ export default function Home() {
     }
   };
 
-  // Handle Enter key in input
+  // Handle keyboard events
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      handleLog();
+      handleLogSubmit();
     }
   };
 
-  // Memory features
+  // Memory attention features
   const enhanceMemory = (id: string) => {
     setSelectedMemory(id);
     const newWeights = {...attentionWeights};
@@ -273,6 +413,20 @@ export default function Home() {
     setSuccessMessage("Memory weights reset to default.");
     setTimeout(() => setSuccessMessage(""), 2000);
   };
+  
+  // Generate new avatar
+  const generateAvatar = () => {
+    setIsLoading(true);
+    
+    // Mock avatar generation
+    setTimeout(() => {
+      // In a real implementation, this would call an image generation API
+      const randomSeed = Math.floor(Math.random() * 1000);
+      setUserAvatar(`/api/placeholder/50/50?rand=${randomSeed}`);
+      setSuggestion("Your avatar has been updated based on your current memory patterns.");
+      setIsLoading(false);
+    }, 1000);
+  };
 
   // Format date for display
   const formatDate = (dateString?: string) => {
@@ -287,179 +441,184 @@ export default function Home() {
     return date.toLocaleDateString();
   };
 
-  // Get memory type color
-  const getMemoryTypeColor = (type?: string) => {
-    switch(type) {
-      case 'meeting': return 'rgba(49, 130, 206, 0.8)';
-      case 'design': return 'rgba(183, 148, 244, 0.8)';
-      case 'research': return 'rgba(79, 209, 197, 0.8)';
-      case 'personal': return 'rgba(246, 173, 85, 0.8)';
-      default: return 'rgba(49, 130, 206, 0.8)';
-    }
-  };
-
+  // Show mobile message on mobile devices
   if (isMobile) {
     return (
-      <div className="hero-image">
-        <div className="mobileMessage">Mobile version currently not available</div>
+      <div className="min-h-screen bg-white flex flex-col justify-center items-center p-4">
+        <h1 className="text-2xl font-light mb-6">
+          Memory <span className="font-serif italic">Log</span>
+        </h1>
+        <div className="text-center text-gray-600">
+          Mobile version currently not available. Please use a desktop browser for the full experience.
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="hero-image flex flex-col min-h-screen">
-      <div className="w-full max-w-lg px-4 mx-auto flex-grow flex flex-col">
-        {/* Main title */}
-        <div className="text-center py-8">
-          <h1 className="title">
-            Log Your <span className="memory-italic">Memory</span>
-          </h1>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Header */}
+      <header className="bg-white p-4 border-b border-gray-200 flex justify-between items-center">
+        <h1 className="text-2xl font-light">
+          Log your <span className="font-serif italic">Memory</span>...What are you?
+        </h1>
+        <div 
+          className="w-12 h-12 rounded-full bg-blue-500 overflow-hidden cursor-pointer flex items-center justify-center"
+          onClick={generateAvatar}
+        >
+          <img src={userAvatar} alt="Profile" className="w-full h-full object-cover" />
         </div>
-
-        {/* Input Section */}
-        <div className="w-full mb-6">
-          <div className="search_box mb-3">
-            <input 
-              className="query"
-              id="query_text"
-              value={log}
-              onChange={(e) => setLog(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="@03/25/2025 9am-10am Meeting with design team"
+      </header>
+      
+      {/* Main content */}
+      <div className="flex-1 flex flex-col md:flex-row">
+        {/* Left side - Memory log area */}
+        <div className="md:w-2/3 p-6 flex flex-col">
+          {/* Input area */}
+          <div className="mb-4 flex">
+            <input
               type="text"
+              value={logText}
+              onChange={(e) => setLogText(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Log a memory or diary entry (@date for new entries)"
+              className="flex-1 p-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-          </div>
-          
-          <div className="buttons">
             <button 
-              className="searchBtn"
-              onClick={handleLog}
+              onClick={handleLogSubmit}
+              className="bg-blue-500 text-white px-4 rounded-r-md hover:bg-blue-600"
               disabled={isLoading}
             >
-              {isLoading ? "Processing..." : "Log"}
-            </button>
-            
-            <FileUploadZone onUpload={handleFileUpload} />
-            
-            <button 
-              className="generateBtn"
-              onClick={handleGenerate}
-              disabled={isLoading} 
-            >
-              Generate
+              {isLoading ? "..." : "Log"}
             </button>
           </div>
           
-          {/* File analysis button - only show if file is uploaded */}
-          {selectedFileLogId && (
-            <button
-              className="mt-4 w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-              onClick={analyzeFile}
-              disabled={isLoading}
-            >
-              {isLoading ? "Analyzing..." : "Analyze Uploaded File"}
-            </button>
-          )}
-        </div>
-
-        {/* Notifications */}
-        {successMessage && (
-          <div className="notification notification-success mb-4">
-            {successMessage}
+          {/* Memory text area */}
+          <div 
+            ref={logAreaRef}
+            className="flex-1 bg-white border border-gray-100 rounded-md p-4 mb-4 overflow-auto"
+          >
+            {isLoading ? (
+              <div className="text-center text-gray-500 py-4">Loading memories...</div>
+            ) : fullMemory ? (
+              <div className="space-y-4">
+                {formatMemoryText()}
+              </div>
+            ) : (
+              <div className="text-center text-gray-500 py-4">No memories yet. Start logging your thoughts above.</div>
+            )}
           </div>
-        )}
-        {error && (
-          <div className="notification notification-error mb-4">
-            {error}
-          </div>
-        )}
-
-        {/* AI Feedback */}
-        {suggestion && (
-          <div className="ai-feedback mb-6">
-            <h2 className="ai-feedback-title">AI Feedback</h2>
-            <p>{suggestion}</p>
-          </div>
-        )}
-
-        {/* Recent Memories */}
-        <div className="memory-card mb-8">
-          <h2 className="section-title">Recent Memories</h2>
           
-          {isLoading ? (
-            <div className="p-4 text-sm text-center text-gray-500">Loading memories...</div>
-          ) : logs.length === 0 ? (
-            <div className="p-4 text-sm text-center text-gray-500">No memories found.</div>
-          ) : (
-            <ul className="memory-list">
-              {logs.map((logItem) => (
-                <li key={logItem.id} className="memory-list-item">
-                  <span className="memory-list-content">{logItem.content}</span>
-                  <div className="flex items-center">
-                    <span className="memory-list-date mr-4">{formatDate(logItem.timestamp)}</span>
-                    <button 
-                      onClick={() => deleteLog(logItem.id)}
-                      className="text-xs text-red-500 hover:text-red-700"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        {/* Memory Attention Visualization (optional) */}
-        {logs.length > 0 && showAttentionMap && (
-          <div className="memory-attention-map mb-8">
-            <div className="flex justify-between items-center mb-3">
-              <h2 className="section-title mb-0">Memory Attention Map</h2>
+          {/* Controls */}
+          <div className="flex justify-between items-center">
+            <div className="flex space-x-2">
               <button 
-                onClick={() => setShowAttentionMap(!showAttentionMap)}
-                className="text-xs text-primary"
+                onClick={generateCompletion}
+                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 flex items-center"
+                disabled={isGenerating || isLoading}
               >
-                {showAttentionMap ? "Hide" : "Show"}
+                {isGenerating ? 'Generating...' : 'Generate Completion'}
               </button>
+              
+              <FileUploadZone onUpload={handleFileUpload} />
+              
+              {selectedFileLogId && (
+                <button
+                  onClick={analyzeFile}
+                  className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Analyzing..." : "Analyze File"}
+                </button>
+              )}
             </div>
             
-            <p className="text-xs text-gray-500 mb-3 ml-5">
-              Showing how different memories influence current suggestions
+            <button
+              onClick={() => setShowAttentionMap(!showAttentionMap)}
+              className="text-blue-500 hover:text-blue-700"
+            >
+              {showAttentionMap ? 'Hide Memory Map' : 'Show Memory Map'}
+            </button>
+          </div>
+          
+          {/* Notifications */}
+          {successMessage && (
+            <div className="notification notification-success mt-4">
+              {successMessage}
+            </div>
+          )}
+          {error && (
+            <div className="notification notification-error mt-4">
+              {error}
+            </div>
+          )}
+          
+          {/* AI Feedback */}
+          {suggestion && (
+            <div className="bg-blue-50 border border-blue-200 rounded-md p-4 mt-4">
+              <h2 className="text-sm font-medium text-blue-700 mb-1">AI Feedback</h2>
+              <p className="text-sm text-blue-600">{suggestion}</p>
+            </div>
+          )}
+        </div>
+        
+        {/* Right side - Memory attention map */}
+        {showAttentionMap && (
+          <div className="md:w-1/3 bg-white border-l border-gray-200 p-6 overflow-auto">
+            <h2 className="text-lg font-medium mb-4">Memory Attention Map</h2>
+            <p className="text-sm text-gray-500 mb-4">
+              Adjust how different memories influence your experience
             </p>
             
-            <div className="space-y-2 mb-4">
-              {logs.slice(0, 6).map((logItem) => (
-                <div 
-                  key={logItem.id} 
-                  className={`memory-item ${selectedMemory === logItem.id ? 'selected' : ''}`}
-                  style={{
-                    backgroundColor: `rgba(49, 130, 206, ${attentionWeights[logItem.id] || 0.1})`,
-                    color: attentionWeights[logItem.id] > 0.5 ? 'white' : '#2d3748',
-                  }}
-                  onClick={() => setSelectedMemory(logItem.id === selectedMemory ? null : logItem.id)}
-                >
-                  <div className="flex justify-between">
-                    <span className="text-xs font-medium">{formatDate(logItem.timestamp)}</span>
-                    <span className="text-xs font-medium">{Math.round((attentionWeights[logItem.id] || 0) * 100)}%</span>
+            {logs.length === 0 ? (
+              <div className="text-center text-gray-500 py-4">No memories yet to display.</div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                {logs.slice(0, 6).map(memory => (
+                  <div 
+                    key={memory.id}
+                    className={`aspect-circle rounded-md p-2 cursor-pointer flex flex-col justify-between transition-all
+                                ${selectedMemory === memory.id ? 'ring-2 ring-blue-500' : ''}`}
+                    style={{
+                      backgroundColor: `rgba(49, 130, 206, ${attentionWeights[memory.id] || 0.1})`,
+                      color: attentionWeights[memory.id] > 0.5 ? 'white' : '#2d3748'
+                    }}
+                    onClick={() => setSelectedMemory(memory.id === selectedMemory ? null : memory.id)}
+                  >
+                    <div className="text-xs font-medium flex justify-between">
+                      <span>Memory {memory.id.substring(0, 4)}...</span>
+                      <span>{Math.round((attentionWeights[memory.id] || 0) * 100)}%</span>
+                    </div>
+                    <p className="text-xs line-clamp-2 my-1 text-xs">
+                      {memory.content.substring(0, 40)}...
+                    </p>
+                    <div className="flex justify-between text-xs">
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); deleteLog(memory.id); }}
+                        className="hover:underline text-xs"
+                      >
+                        Delete
+                      </button>
+                      <span className="text-xs">{formatDate(memory.timestamp || memory.start_time)}</span>
+                    </div>
                   </div>
-                  <p className="text-sm mt-1">{logItem.content}</p>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
             
             {/* Memory adjustment controls */}
-            <div className="flex space-x-2">
+            <div className="flex flex-col gap-2">
               {selectedMemory && (
                 <>
                   <button
                     onClick={() => enhanceMemory(selectedMemory)}
-                    className="memory-button memory-button-primary"
+                    className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600 text-sm"
                   >
                     Enhance Memory
                   </button>
                   <button
                     onClick={() => reduceMemory(selectedMemory)}
-                    className="memory-button memory-button-secondary"
+                    className="bg-gray-200 text-gray-800 px-3 py-2 rounded-md hover:bg-gray-300 text-sm"
                   >
                     Reduce Memory
                   </button>
@@ -467,7 +626,7 @@ export default function Home() {
               )}
               <button
                 onClick={resetMemoryWeights}
-                className="memory-button memory-button-secondary"
+                className="bg-gray-200 text-gray-800 px-3 py-2 rounded-md hover:bg-gray-300 text-sm"
               >
                 Reset Weights
               </button>
@@ -475,46 +634,82 @@ export default function Home() {
           </div>
         )}
       </div>
-
+      
+      {/* Recent Memories List */}
+      <div className="border-t border-gray-200 bg-white p-6">
+        <h2 className="text-lg font-medium mb-4">Recent Memories</h2>
+        
+        {isLoading ? (
+          <div className="text-center text-gray-500 py-4">Loading memories...</div>
+        ) : logs.length === 0 ? (
+          <div className="text-center text-gray-500 py-4">No memories found.</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {logs.map((logItem) => (
+              <div key={logItem.id} className="border border-gray-200 rounded-md p-4 hover:shadow-md transition-shadow">
+                <div className="flex justify-between items-start mb-2">
+                  <span className="text-xs text-gray-500">{formatDate(logItem.timestamp || logItem.start_time)}</span>
+                  <button 
+                    onClick={() => deleteLog(logItem.id)}
+                    className="text-xs text-red-500 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
+                <p className="text-sm text-gray-700 line-clamp-3">{logItem.content}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
       {/* Timeline */}
-      <div className="timeline-container">
-        <div className="timeline-bar">
+      <div className="fixed bottom-16 left-0 right-0 mx-auto w-3/4 max-w-4xl px-4">
+        <div className="timeline-bar h-1 bg-gray-200 rounded-full overflow-hidden">
           {logs.map((log, index) => {
-            const width = 100 / logs.length;
-            const position = index * width;
+            const width = 100 / Math.max(logs.length, 1);
             return (
               <div
                 key={log.id}
-                className="timeline-segment"
+                className="inline-block h-full"
                 style={{
-                  backgroundColor: getMemoryTypeColor(log.type),
+                  backgroundColor: `rgba(49, 130, 206, ${attentionWeights[log.id] || 0.5})`,
                   width: `${width}%`,
-                  left: `${position}%`
                 }}
               />
             );
           })}
         </div>
-        <div className="timeline-labels">
-          <span>Feb</span>
-          <span>March</span>
-          <span>April</span>
-          <span>May</span>
+        <div className="flex justify-between text-xs text-gray-500 mt-1">
+          <span>Past</span>
           <span>Present</span>
         </div>
       </div>
-
-      {/* Navigation footer */}
-      <section className="navBottom mt-auto">
-        <div className="navElement"><a href="https://text2cal.vercel.app/" target="_blank" className="active">Log Your Memory</a></div>
-        <div className="navElement"><a href="#" target="_blank">About</a></div>
-        <div className="navElement"><a href="#" target="_blank">Documentation</a></div>
-        <div className="navElement"><a href="https://github.com/" target="_blank">GitHub</a></div>
-        <div className="navElement"><a href="#" target="_blank">Terms</a></div>
-        <div className="navElement"><a href="#" target="_blank">Privacy</a></div>
-        <div className="navElement"><a href="#" target="_blank">Contact</a></div>
-      </section>
-
+      
+      {/* Synthetic Data Generator Button */}
+      <div className="fixed bottom-24 right-6">
+        <button
+          onClick={() => setIsSynthDataModalOpen(true)}
+          className="bg-purple-500 text-white p-3 rounded-full shadow-lg hover:bg-purple-600 flex items-center justify-center"
+          title="Generate synthetic data"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+          </svg>
+        </button>
+      </div>
+      
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 py-4 px-6 text-center text-xs text-gray-500">
+        <p>Memory Log - An experimental tool for personal memory management</p>
+        <div className="mt-2 flex justify-center space-x-4">
+          <a href="#" className="hover:text-blue-600">About</a>
+          <a href="#" className="hover:text-blue-600">Documentation</a>
+          <a href="#" className="hover:text-blue-600">GitHub</a>
+          <a href="#" className="hover:text-blue-600">Privacy</a>
+        </div>
+      </footer>
+      
       {/* File Analysis Modal */}
       {showAnalysisModal && analysisResults && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">

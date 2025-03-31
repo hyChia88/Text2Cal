@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@types/lodash": "^4.17.16",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "lucide-react": "^0.485.0"
   }
 }

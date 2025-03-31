@@ -1,0 +1,6 @@
+id,content,start_time,end_time,category,tags,importance,type,openai_generated,is_follow_up,source_memory_id
+0,"Today I thought about Design Thinking. I feel Focused, hoping for a breakthrough.",2025-03-23T01:27:26.483415,,Note,Digital Fabrication,0.5,diary,False,,
+1,"After our previous session on Design Thinking, I've been thinking about new approaches. This connects to our earlier work.",2025-03-26T01:27:26.483415,,Note,"excited,Human-Computer Interaction,inspired,design-thinking",0.5,structured,False,True,0
+2,Following up on our Design Thinking discussion from last week. Made some progress with the concepts. Next steps: continue research.,2025-03-29T01:27:26.483415,,Note,"Study,design-thinking",0.5,diary,False,True,0
+3,@02/20/2025 to 02/23/2025 Working on Interactive Installation - iterating on design based on feedback from Classmate Noah,2025-02-20T00:03:38.043187,,Note,"exhausted,frustrated,Course",0.5,structured,False,,
+4,@02/24/2025 to 03/05/2025 Working on Interactive Installation - research phase exploring Research,2025-02-24T07:09:49.149018,,Research,Sustainable Design,0.5,structured,False,,
