@@ -1,0 +1,202 @@
+{
+  "change_my_mind_v1.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "change"
+    ],
+    "description": "Generic change_my_mind_v1 meme template"
+  },
+  "change_my_mind_v2.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "change"
+    ],
+    "description": "Generic change_my_mind_v2 meme template"
+  },
+  "change_my_mind_v3.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "change"
+    ],
+    "description": "Generic change_my_mind_v3 meme template"
+  },
+  "change_my_mind_v4.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "change"
+    ],
+    "description": "Generic change_my_mind_v4 meme template"
+  },
+  "change_my_mind_v5.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "change"
+    ],
+    "description": "Generic change_my_mind_v5 meme template"
+  },
+  "distracted_boyfriend_v1.jpg": {
+    "labels": [
+      "distracted",
+      "boyfriend",
+      "jealousy",
+      "temptation",
+      "preference",
+      "choice"
+    ],
+    "description": "Man looking at another woman while his girlfriend looks at him disapprovingly"
+  },
+  "distracted_boyfriend_v2.jpg": {
+    "labels": [
+      "distracted",
+      "boyfriend",
+      "jealousy",
+      "temptation",
+      "preference",
+      "choice"
+    ],
+    "description": "Man looking at another woman while his girlfriend looks at him disapprovingly"
+  },
+  "distracted_boyfriend_v3.jpg": {
+    "labels": [
+      "distracted",
+      "boyfriend",
+      "jealousy",
+      "temptation",
+      "preference",
+      "choice"
+    ],
+    "description": "Man looking at another woman while his girlfriend looks at him disapprovingly"
+  },
+  "distracted_boyfriend_v4.jpg": {
+    "labels": [
+      "distracted",
+      "boyfriend",
+      "jealousy",
+      "temptation",
+      "preference",
+      "choice"
+    ],
+    "description": "Man looking at another woman while his girlfriend looks at him disapprovingly"
+  },
+  "distracted_boyfriend_v5.jpg": {
+    "labels": [
+      "distracted",
+      "boyfriend",
+      "jealousy",
+      "temptation",
+      "preference",
+      "choice"
+    ],
+    "description": "Man looking at another woman while his girlfriend looks at him disapprovingly"
+  },
+  "doge_v1.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "doge"
+    ],
+    "description": "Generic doge_v1 meme template"
+  },
+  "doge_v2.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "doge"
+    ],
+    "description": "Generic doge_v2 meme template"
+  },
+  "doge_v3.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "doge"
+    ],
+    "description": "Generic doge_v3 meme template"
+  },
+  "doge_v4.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "doge"
+    ],
+    "description": "Generic doge_v4 meme template"
+  },
+  "doge_v5.jpg": {
+    "labels": [
+      "meme",
+      "funny",
+      "reaction",
+      "doge"
+    ],
+    "description": "Generic doge_v5 meme template"
+  },
+  "drake_v1.jpg": {
+    "labels": [
+      "drake",
+      "approve",
+      "disapprove",
+      "comparison",
+      "preference",
+      "choice"
+    ],
+    "description": "Drake refusing something and then approving something else"
+  },
+  "drake_v2.jpg": {
+    "labels": [
+      "drake",
+      "approve",
+      "disapprove",
+      "comparison",
+      "preference",
+      "choice"
+    ],
+    "description": "Drake refusing something and then approving something else"
+  },
+  "drake_v3.jpg": {
+    "labels": [
+      "drake",
+      "approve",
+      "disapprove",
+      "comparison",
+      "preference",
+      "choice"
+    ],
+    "description": "Drake refusing something and then approving something else"
+  },
+  "drake_v4.jpg": {
+    "labels": [
+      "drake",
+      "approve",
+      "disapprove",
+      "comparison",
+      "preference",
+      "choice"
+    ],
+    "description": "Drake refusing something and then approving something else"
+  },
+  "drake_v5.jpg": {
+    "labels": [
+      "drake",
+      "approve",
+      "disapprove",
+      "comparison",
+      "preference",
+      "choice"
+    ],
+    "description": "Drake refusing something and then approving something else"
+  }
+}

@@ -1,5 +1,10 @@
 # A3: Log your memories
 
+## Structure:
+- `frontend`: React.js frontend application
+- `backend`: Python Flask backend API
+- `data`: Directory for synthetic data generation
+
 ## Installation
 1. Generate Synthetic Data (Optional)
 To populate your system with test data:
