@@ -3,3 +3,11 @@ flask-cors==4.0.0
 python-dotenv==1.0.0
 requests==2.31.0
 gunicorn==20.1.0  # Add this line to your requirements.txt
+openai>=1.0.0
+pymongo
+numpy
+scikit-learn
+pandas
+python-dateutil
+torch
+torchvision
