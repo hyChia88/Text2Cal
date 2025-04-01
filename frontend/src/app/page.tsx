@@ -135,8 +135,8 @@ export default function Home() {
       });
       setAttentionWeights(weights);
       
-    } catch (err) {
-      setError("Failed to fetch logs. Please try again later.");
+    } catch (error) {
+      console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -179,8 +179,8 @@ export default function Home() {
       // Get AI suggestion automatically
       await getSuggestion();
       
-    } catch (err) {
-      setError("Failed to add memory log. Please try again later.");
+    } catch (error) {
+      console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -193,8 +193,8 @@ export default function Home() {
       await apiService.deleteLog(id);
       await fetchLogs();
       setSuccessMessage("Memory deleted successfully.");
-    } catch (err) {
-      setError("Failed to delete memory.");
+    } catch (error) {
+      console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -207,8 +207,8 @@ export default function Home() {
       setError("");
       const suggestion = await apiService.getSuggestion();
       setSuggestion(suggestion);
-    } catch (err) {
-      setError("Failed to get insights. Please try again later.");
+    } catch (error) {
+      console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -347,8 +347,8 @@ export default function Home() {
         // Refresh logs list
         fetchLogs();
       }
-    } catch (err) {
-      console.error("Error uploading file:", err);
+    } catch (error) {
+      console.error("Error:", error);
       setError("Failed to upload file. Please try again.");
     } finally {
       setIsLoading(false);
@@ -369,8 +369,8 @@ export default function Home() {
         setAnalysisResults(response.data);
         setShowAnalysisModal(true);
       }
-    } catch (err) {
-      console.error("Error analyzing file:", err);
+    } catch (error) {
+      console.error("Error:", error);
       setError("Failed to analyze file. Please try again.");
     } finally {
       setIsLoading(false);

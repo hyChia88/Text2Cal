@@ -15,10 +15,50 @@ interface Log {
   formatted?: string;
 }
 
+// This interface is unused - either remove it or use it 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface ApiResponse<T> {
   status: string;
   data?: T;
   message?: string;
+}
+
+// Define response interfaces for specific endpoints
+interface LogConnection {
+  id: string;
+  content: string;
+  start_time: string;
+  connection_type: string;
+  explanation: string;
+  similarity_score: number;
+}
+
+interface UploadResponse {
+  status: string;
+  file_path?: string;
+  metadata?: Record<string, unknown>;
+  summary?: string;
+  log_id?: string;
+}
+
+interface AnalysisResponse {
+  status: string;
+  file_type?: string;
+  sensory_descriptions?: Record<string, unknown>;
+  content_analysis?: Record<string, unknown>;
+  summary?: string;
+  emotion_analysis?: Record<string, number>;
+  text_preview?: string;
+}
+
+interface StatsResponse {
+  total_logs: number;
+  logs_by_category: Record<string, number>;
+  logs_by_day: Record<string, number>;
+  logs_by_hour: Record<string, number>;
+  most_active_days: Array<[string, number]>;
+  most_active_hours: Array<[string, number]>;
+  [key: string]: unknown; // Allow additional properties
 }
 
 // Create the API service object
@@ -110,7 +150,7 @@ export const apiService = {
   },
   
   // Get connections for a log
-  getLogConnections: async (logId: string): Promise<any[]> => {
+  getLogConnections: async (logId: string): Promise<LogConnection[]> => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/connections/${logId}`);
       return response.data.connections || [];
@@ -121,7 +161,7 @@ export const apiService = {
   },
   
   // Upload a file
-  uploadFile: async (file: File): Promise<any> => {
+  uploadFile: async (file: File): Promise<UploadResponse> => {
     try {
       const formData = new FormData();
       formData.append('file', file);
@@ -140,7 +180,7 @@ export const apiService = {
   },
   
   // Analyze a file
-  analyzeFile: async (logId: string): Promise<any> => {
+  analyzeFile: async (logId: string): Promise<AnalysisResponse> => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/files/${logId}/analyze`);
       return response.data;
@@ -150,8 +190,8 @@ export const apiService = {
     }
   },
   
-  // Get statistics
-  getStats: async (days: number = 30): Promise<any> => {
+  // Get statistics 
+  getStats: async (days: number = 30): Promise<StatsResponse> => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/stats?days=${days}`);
       return response.data;
@@ -168,20 +208,19 @@ export const apiService = {
     openaiRatio: number = 0.3
   ): Promise<{count: number}> => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/api/generate-synthetic-data`, { 
-            num_samples: count,
-            use_enhanced: useEnhanced,
-            openai_ratio: openaiRatio
-        });
-        return { count: response.data.count || 0 };
+      const response = await axios.post(`${API_BASE_URL}/api/generate-synthetic-data`, { 
+        num_samples: count,
+        use_enhanced: useEnhanced,
+        openai_ratio: openaiRatio
+      });
+      return { count: response.data.count || 0 };
     } catch (error) {
-        console.error("Error generating synthetic data:", error);
-        throw error;
+      console.error("Error generating synthetic data:", error);
+      throw error;
     }
   },
   
-  // Add to apiService in api.ts
-  // Update in api.ts
+  // Generate memory completion
   generateMemoryCompletion: async (memoryIds: string[], weights: {[key: string]: number}): Promise<{
     completion: string, 
     originalContents: string[]
