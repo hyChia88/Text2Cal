@@ -22,11 +22,14 @@ class OpenAIHelper:
         Args:
             api_key: OpenAI API key, if None tries to get from environment variable
         """
+        print("Attempting to retrieve OpenAI API key...")
         self.api_key = api_key or os.getenv('OPENAI_API_KEY')
         
         if not self.api_key:
-            print("Warning: No OpenAI API key provided. Set OPENAI_API_KEY environment variable.")
-        
+            print("CRITICAL ERROR: No OpenAI API key found!")
+            print("Environment variables:", os.environ)
+        else:
+            print("OpenAI API key retrieved successfully")
         # Base API URL
         self.api_base_url = "https://api.openai.com/v1"
         

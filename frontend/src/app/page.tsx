@@ -247,7 +247,7 @@ export default function Home() {
       setSuggestion("Your memory has been enriched with contextual insights based on your attention patterns.");
     } catch (error) {
       console.error("Error generating memory completion:", error);
-      setError("Failed to generate memory completion. Please try again.");
+      setError("Failed to generate memory completion. Please try again!!!");
     } finally {
       setIsGenerating(false);
     }
