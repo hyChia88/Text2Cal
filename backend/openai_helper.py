@@ -581,15 +581,18 @@ Format your response as JSON with the following keys:
             
             formatted_others.append(f"Log ID: {log_id}\nTime: {log_time}\nContent: {content}")
         
-        # Prepare the prompt
+        
+            log_list = ""
+        for i, log in enumerate(formatted_others, 1):
+            log_list += f"{i}. {log}\n{'-' * 40}\n"
+
         prompt = f"""I have a main log entry and several other log entries. Please identify meaningful connections between the main log and each of the other logs.
 
 MAIN LOG:
 {formatted_target}
 
 OTHER LOGS:
-{'-' * 40}
-{"".join([f"{i+1}. {log}\n{'-' * 40}\n" for i, log in enumerate(formatted_others)])}
+{log_list}
 
 For each other log that has a meaningful connection to the main log, provide:
 1. The log ID
